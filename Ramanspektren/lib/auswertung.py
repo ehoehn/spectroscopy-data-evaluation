@@ -34,3 +34,12 @@ def compute_frame_with_lowest_intensity(intensities, band_start, band_end):
     dfn = lowest.split(' ')
     framenumber = int(dfn[1])
     return framenumber
+
+
+def compute_frame_with_lowest_intensity_from_smoothed(smoothed):
+    copy_smoothed = smoothed.copy()
+    lowest = copy_smoothed.idxmin(axis=1)
+    lowest = lowest.values.tolist()[0]
+    dfn = lowest.split(' ')
+    framenumber = int(dfn[1])
+    return framenumber

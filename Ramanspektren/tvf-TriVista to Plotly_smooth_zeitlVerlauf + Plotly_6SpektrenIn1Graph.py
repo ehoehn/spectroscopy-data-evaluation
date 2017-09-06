@@ -15,13 +15,13 @@ import plotly.graph_objs as go  # import Scatter, Layout
 from lib import analyte
 from lib.allgemein import generate_filename
 from lib.auswertung import compute_wn_with_highest_intensity
-from lib.auswertung import compute_frame_with_lowest_intensity
+from lib.auswertung import compute_frame_with_lowest_intensity, compute_frame_with_lowest_intensity_from_smoothed
 from lib.auswertung import grep_highest_intensity
 from lib.baseline_corr import baselinecorrection, get_spectrum_values
 from lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
 from lib.xml_import import get_intensities
 from lib.xml_import import get_times
-from lib.auswertung_fremdcode import smooth
+import scipy.signal
 
 
 suffix_for_new_filename_zeitlVerlauf = '_smooth_graphzeitlVerlauf.html'
@@ -170,9 +170,9 @@ def plotly_zeiten6spektren_in1graph_2dscatter_data(intensities, framenumber, Vol
     #print([trace1, trace2, trace3])
     return [trace1, trace2, trace3, trace4, trace5, trace6]
 
-def plotly_zeiten6spektren_in1graph(intensities, dateiname, suffix_for_new_filename_3spektren_in1graph, VoltageOn, VoltageOff):
-    framenumber = compute_frame_with_lowest_intensity(intensities, band_start, band_end)
-    #print(framenumber)
+def plotly_zeiten6spektren_in1graph(intensities, smoothed, dateiname, suffix_for_new_filename_3spektren_in1graph, VoltageOn, VoltageOff):
+    #framenumber = compute_frame_with_lowest_intensity(intensities, band_start, band_end)
+    framenumber = compute_frame_with_lowest_intensity_from_smoothed(smoothed)
     nwfile = generate_filename(dateiname, suffix_for_new_filename_3spektren_in1graph)
     data = plotly_zeiten6spektren_in1graph_2dscatter_data(intensities, framenumber, VoltageOn, VoltageOff)
     layout = plotly_zeiten3spektren_in1graph_2dscatter_layout()
@@ -193,12 +193,14 @@ for dateiname in os.listdir():
         TimeVoltageOff = round(times['Frame 200']['time [s]'] + 200, 0)
         FrameVoltageOff = times[times.columns[times.ix['time [s]'] > TimeVoltageOff - 1]].columns[0]
 
-        plotly_zeiten6spektren_in1graph(intensities, dateiname, suffix_for_new_filename_6spektren_in1graph, FrameVoltageOn, FrameVoltageOff)
         df_korregiert = baselinecorrection(intensities, punkte_baseline)
         wn_with_highest_intensity = compute_wn_with_highest_intensity(df_korregiert, band_start, band_end)
         highest_intensity = grep_highest_intensity(df_korregiert, wn_with_highest_intensity)
 
-        smoothed = pd.rolling_mean(highest_intensity.transpose(), 11, min_periods=3)
+        smoothed = scipy.signal.savgol_filter(highest_intensity.transpose(), window_length=21, polyorder=3, axis=0, mode='nearest')     #https://docs.scipy.org/doc/scipy-0.16.1/reference/generated/scipy.signal.savgol_filter.html
         smoothed = smoothed.transpose()
+        smoothed = pd.DataFrame(smoothed, index=['highest intensity [a. u.]'], columns=[df_korregiert.columns])
+
+        plotly_zeiten6spektren_in1graph(intensities, smoothed, dateiname, suffix_for_new_filename_6spektren_in1graph, FrameVoltageOn, FrameVoltageOff)
 
         plotly_zeitlVerlauf(smoothed, times, dateiname, suffix_for_new_filename_zeitlVerlauf, xaxis_title='Time [s]', yaxis_title='Intensity [a. u.]') #zeitl Verlauf nach baseline correktur
