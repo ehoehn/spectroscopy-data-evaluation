@@ -185,23 +185,20 @@ for dateiname in os.listdir():
     if dateiname.endswith('_beiF1Analyt_beiF20ElektrolythFlussAn_beiF200ProgStart.tvf') or dateiname.endswith('_beiF1Analyt_beiF20ElektrolythFlussAn_beiF200ProgStart.TVF'):
         print(dateiname)
         intensities = get_intensities(dateiname)
-      #  print(intensities.columns)
-        # times = get_times(dateiname)
-        #
-        # TimeVoltageOn = round(times['Frame 200']['time [s]'] + 100, 0)
-        # FrameVoltageOn = times[times.columns[times.ix['time [s]'] > TimeVoltageOn - 1]].columns[0]
-        # TimeVoltageOff = round(times['Frame 200']['time [s]'] + 200, 0)
-        # FrameVoltageOff = times[times.columns[times.ix['time [s]'] > TimeVoltageOff - 1]].columns[0]
-        #
-        # plotly_zeiten6spektren_in1graph(intensities, dateiname, suffix_for_new_filename_6spektren_in1graph, FrameVoltageOn, FrameVoltageOff)
+
+        times = get_times(dateiname)
+
+        TimeVoltageOn = round(times['Frame 200']['time [s]'] + 100, 0)
+        FrameVoltageOn = times[times.columns[times.ix['time [s]'] > TimeVoltageOn - 1]].columns[0]
+        TimeVoltageOff = round(times['Frame 200']['time [s]'] + 200, 0)
+        FrameVoltageOff = times[times.columns[times.ix['time [s]'] > TimeVoltageOff - 1]].columns[0]
+
+        plotly_zeiten6spektren_in1graph(intensities, dateiname, suffix_for_new_filename_6spektren_in1graph, FrameVoltageOn, FrameVoltageOff)
         df_korregiert = baselinecorrection(intensities, punkte_baseline)
         wn_with_highest_intensity = compute_wn_with_highest_intensity(df_korregiert, band_start, band_end)
         highest_intensity = grep_highest_intensity(df_korregiert, wn_with_highest_intensity)
-     #   print(highest_intensity)
-        print(np.array(highest_intensity.ix['highest intensity [a. u.]'].values.tolist()))
-        smoothed_highest_intensity = smooth(np.array(highest_intensity.ix['highest intensity [a. u.]'].values.tolist()))
-        print(smoothed_highest_intensity)
-        print(len(list(smoothed_highest_intensity)))
-        ssmoothed_highest_intensity = pd.DataFrame(list(smoothed_highest_intensity), columns=['highest intensity [a. u.]'], index=[intensities.columns])
-        print(ssmoothed_highest_intensity)
-       # plotly_zeitlVerlauf(smoothed_highest_intensity, times, dateiname, suffix_for_new_filename_zeitlVerlauf, xaxis_title='Time [s]', yaxis_title='Intensity [a. u.]') #zeitl Verlauf nach baseline correktur
+
+        smoothed = pd.rolling_mean(highest_intensity.transpose(), 11, min_periods=3)
+        smoothed = smoothed.transpose()
+
+        plotly_zeitlVerlauf(smoothed, times, dateiname, suffix_for_new_filename_zeitlVerlauf, xaxis_title='Time [s]', yaxis_title='Intensity [a. u.]') #zeitl Verlauf nach baseline correktur
