@@ -105,7 +105,7 @@ for dateiname in os.listdir():
 
         TimeVoltageOn = round(times['Frame 200']['time [s]'] + 100, 0)
         FrameVoltageOn = times[times.columns[times.ix['time [s]'] > TimeVoltageOn - 1]].columns[0]
-
+# break
 
 for dateiname in os.listdir():
     if dateiname.endswith('usammenfassung_Renata_grep.csv') or dateiname.endswith('usammenfassung_Renata_grep.CSV'):

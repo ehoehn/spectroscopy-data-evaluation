@@ -1,13 +1,12 @@
 ﻿'''
 imput file: .tvf-TriVista-Datei
-output file: ein Graph mit 6 Spektren: Frame1, Frame 20 - flow on, Frame 200 - program on, Frame 200 + 100 s - At the start of regeration (voltage on), Frame 200 + 200 s - voltage off, position of least intense signal
-output file: zeitlicher Verlauf der Frames nach baseline correctur und smoothing via Sawitzky-Golay-Filter
+output file: ein Graph mit 3 Spektren: Frame1, Frame100 und den Frame mit der Minimalintensität
+output file: Zeit bis Target sauber ist nach baseline correctur und smoothing via Sawitzky-Golay-Filter
 '''
 #written by EvaMaria Hoehn
 
 import os
 
-import pandas as pd
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
 from lib import analyte
@@ -22,8 +21,7 @@ from lib.xml_import import get_times
 from lib.auswertung import savitzkygolay_for_pandas
 
 
-suffix_for_new_filename_zeitlVerlauf = '_smooth_graphzeitlVerlauf.html'
-suffix_for_new_filename_6spektren_in1graph = '_smooth_graph6spektren.html'
+suffix_for_new_filename_zeitlVerlauf = '_smooth_HWZ_graphzeitlVerlauf.html'
 punkte_baseline = analyte.kristallviolett()
 band_start = 1605
 band_end = 1630
@@ -167,25 +165,53 @@ def plotly_zeiten6spektren_in1graph(intensities, smoothed, dateiname, suffix_for
     plotly.offline.plot(fig, filename=nwfile, auto_open=False) # , image='png', image_filename=nwfile, image_width=800, image_height=430)
 
 
+for dateiname in os.listdir():
+    if dateiname.endswith('_beiF1Analyt_beiF20ElektrolythFlussAn_beiF200ProgStart.tvf') or dateiname.endswith('_beiF1Analyt_beiF20ElektrolythFlussAn_beiF200ProgStart.TVF'):
+     #   print(dateiname)
+        times = get_times(dateiname)
+
+        TimeVoltageOn = round(times['Frame 200']['time [s]'] + 100, 0)
+        FrameVoltageOn = times[times.columns[times.ix['time [s]'] > TimeVoltageOn - 1]].columns[0]
+        #print(FrameVoltageOn)
+        break
+#print(FrameVoltageOn)
+
 
 for dateiname in os.listdir():
     if dateiname.endswith('_beiF1Analyt_beiF20ElektrolythFlussAn_beiF200ProgStart.tvf') or dateiname.endswith('_beiF1Analyt_beiF20ElektrolythFlussAn_beiF200ProgStart.TVF'):
         print(dateiname)
         intensities = get_intensities(dateiname)
-
         times = get_times(dateiname)
 
-        TimeVoltageOn = round(times['Frame 200']['time [s]'] + 100, 0)
-        FrameVoltageOn = times[times.columns[times.ix['time [s]'] > TimeVoltageOn - 1]].columns[0]
-        TimeVoltageOff = round(times['Frame 200']['time [s]'] + 200, 0)
-        FrameVoltageOff = times[times.columns[times.ix['time [s]'] > TimeVoltageOff - 1]].columns[0]
+#         TimeVoltageOn = round(times['Frame 200']['time [s]'] + 100, 0)
+#         FrameVoltageOn = times[times.columns[times.ix['time [s]'] > TimeVoltageOn - 1]].columns[0]
+#         TimeVoltageOff = round(times['Frame 200']['time [s]'] + 200, 0)
+#         FrameVoltageOff = times[times.columns[times.ix['time [s]'] > TimeVoltageOff - 1]].columns[0]
 
         df_korregiert = baselinecorrection(intensities, punkte_baseline)
         wn_with_highest_intensity = compute_wn_with_highest_intensity(df_korregiert, band_start, band_end)
         highest_intensity = grep_highest_intensity(df_korregiert, wn_with_highest_intensity)
+        smoothed = savitzkygolay_for_pandas(highest_intensity, window_length=21, polyorder=3)
 
-        smoothed = savitzkygolay_for_pandas(highest_intensity)
+        NoOfHWZ = 5     # wie viele Halbwertszeiten
+        intNachHWZ = smoothed[FrameVoltageOn] / (2**NoOfHWZ)
 
-        plotly_zeiten6spektren_in1graph(intensities, smoothed, dateiname, suffix_for_new_filename_6spektren_in1graph, FrameVoltageOn, FrameVoltageOff)
+        framenumber = compute_frame_with_lowest_intensity_from_smoothed(smoothed)
 
-        plotly_zeitlVerlauf(smoothed, times, dateiname, suffix_for_new_filename_zeitlVerlauf, xaxis_title='Time [s]', yaxis_title='Intensity [a. u.]') #zeitl Verlauf nach baseline correktur
+        vonTangenteAus = smoothed - smoothed['Frame ' + str(framenumber)].values.tolist()[0]
+        SignalConsideredAway = vonTangenteAus.columns[vonTangenteAus.ix['highest intensity [a. u.]'] < (intNachHWZ.values.tolist()[0])]
+
+        print(SignalConsideredAway[0])
+        print(times[SignalConsideredAway[0]])
+        print(FrameVoltageOn)
+        print(times[FrameVoltageOn])
+        print(times[SignalConsideredAway[0]] - times[FrameVoltageOn])
+
+
+#         plotly_zeiten6spektren_in1graph(intensities, smoothed, dateiname, suffix_for_new_filename_6spektren_in1graph, FrameVoltageOn, FrameVoltageOff)
+#
+#         plotly_zeitlVerlauf(smoothed, times, dateiname, suffix_for_new_filename_zeitlVerlauf, xaxis_title='Time [s]', yaxis_title='Intensity [a. u.]') #zeitl Verlauf nach baseline correktur
+
+
+
+

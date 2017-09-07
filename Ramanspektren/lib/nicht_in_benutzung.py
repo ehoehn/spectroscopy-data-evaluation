@@ -1,3 +1,6 @@
+import regex as re
+
+
 def get_idxfcore(df, spectrum_values):
     copy_df = df.copy()
     idxfcore = []
@@ -12,3 +15,14 @@ def get_idxfcore(df, spectrum_values):
                 idxfcore.append(j)
             idxfcore.append(x_bl[-1])
     return idxfcore
+
+
+def get_point_values(df, punkt):
+    ind = df.ix[0].values.tolist()
+    ind = liste_in_floats_umwandeln(ind)
+    ks = []
+    for i in range(0, len([punkt])):
+        for k in ind:
+            if re.match(str(punkt) + '\.[0-9]+', str(k)):
+                ks.append(k)
+    return ks

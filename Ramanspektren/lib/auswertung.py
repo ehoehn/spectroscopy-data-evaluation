@@ -1,4 +1,5 @@
 import pandas as pd
+import scipy.signal
 
 
 def compute_wn_with_highest_intensity(df_korregiert, band_start, band_end):
@@ -43,3 +44,11 @@ def compute_frame_with_lowest_intensity_from_smoothed(smoothed):
     dfn = lowest.split(' ')
     framenumber = int(dfn[1])
     return framenumber
+
+
+def savitzkygolay_for_pandas(df, window_length=21, polyorder=3):
+    smoothed = scipy.signal.savgol_filter(df.transpose(), window_length, polyorder, axis=0, mode='nearest')  # https://docs.scipy.org/doc/scipy-0.16.1/reference/generated/scipy.signal.savgol_filter.html
+    smoothed = smoothed.transpose()
+    smoothed = pd.DataFrame(smoothed, index=[df.index], columns=[df.columns])
+    return smoothed
+

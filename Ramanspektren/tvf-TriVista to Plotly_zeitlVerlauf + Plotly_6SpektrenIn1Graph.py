@@ -1,6 +1,6 @@
 ﻿'''
 imput file: .tvf-TriVista-Datei
-output file: ein Graph mit 3 Spektren: Frame1, Frame100 und den Frame mit der Minimalintensität
+output file: ein Graph mit 6 Spektren: Frame1, Frame 20 - flow on, Frame 200 - program on, Frame 200 + 100 s - At the start of regeration (voltage on), Frame 200 + 200 s - voltage off, position of least intense signal
 output file: zeitlicher Verlauf der Frames nach baseline correctur
 '''
 #written by EvaMaria Hoehn
@@ -28,17 +28,6 @@ suffix_for_new_filename_6spektren_in1graph = '_graph6spektren.html'
 punkte_baseline = analyte.kristallviolett()
 band_start = 1605
 band_end = 1630
-
-
-def get_point_values(df, punkt):
-    ind = df.ix[0].values.tolist()
-    ind = liste_in_floats_umwandeln(ind)
-    ks = []
-    for i in range(0, len([punkt])):
-        for k in ind:
-            if re.match(str(punkt) + '\.[0-9]+', str(k)):
-                ks.append(k)
-    return ks
 
 
 def plotly_zeitlVerlauf_2dscatter_data(highest_intensity, zeiten):
