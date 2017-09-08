@@ -44,6 +44,10 @@ for dateiname in os.listdir():
             interval = df2.ix[:, FrameVoltageOn:]
             y_values = 100 - interval.min(axis=1)
         #    print(y_values)
+            print(y_values)
+            df2['signal decrease [%]'] = y_values
+            print(df2)
+            df2.to_csv('Zusammenfassung_Renata_grep_mitSignalDecrease.csv', sep=';')
 
             plotly_y_dependent_of_x(x_values, y_values, dateiname, suffix_for_new_filename,
                                     x_range=None, y_range=[0, 105],
