@@ -103,10 +103,11 @@ def plotly_nach_positionen_3dscatter_data(x_positions, y_positions, z_positions,
     return data
 
 
-def plotly_zeitlVerlauf_2dscatter_layout(ind, xaxis_title, yaxis_title, rangestart=None, rangestop=None):
+def plotly_zeitlVerlauf_2dscatter_layout(
+        ind, xaxis_title, yaxis_title, yrangestart=None, yrangestop=None, graphwidth=800):
     layout = go.Layout(
         autosize=False,
-        width=800,
+        width=graphwidth,
         height=430,
         showlegend=True,
         legend=dict(x=0.85, y=1),
@@ -151,7 +152,7 @@ def plotly_zeitlVerlauf_2dscatter_layout(ind, xaxis_title, yaxis_title, rangesta
             ticklen=5,
             tickwidth=1,
             tickcolor='#FFFFFF',
-            range=[rangestart, rangestop]
+            range=[yrangestart, yrangestop]
         ))
     return layout
 

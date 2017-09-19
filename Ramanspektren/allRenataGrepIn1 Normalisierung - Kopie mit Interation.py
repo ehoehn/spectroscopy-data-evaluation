@@ -45,7 +45,7 @@ def plotly_zeitlVerlauf_2dscatter_data(highest_intensity):
 def plotly_zeitlVerlauf(df, dateiname, suffix_for_new_filename, xaxis_title, yaxis_title):
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     data, ind = plotly_zeitlVerlauf_2dscatter_data(df)
-    fig = go.Figure(data=data, layout=plotly_zeitlVerlauf_2dscatter_layout(ind, xaxis_title, yaxis_title, rangestart=0, rangestop=105))
+    fig = go.Figure(data=data, layout=plotly_zeitlVerlauf_2dscatter_layout(ind, xaxis_title, yaxis_title, yrangestart=0, yrangestop=105))
     plotly.offline.plot(fig, filename=nwfile) # , image='png', image_filename=nwfile, image_width=800, image_height=430)
 
 
