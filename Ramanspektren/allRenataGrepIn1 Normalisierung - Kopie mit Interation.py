@@ -3,10 +3,10 @@ import os
 import pandas as pd
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
-from lib.allgemein import generate_filename
-from lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
-from lib.plotlygraphen import viridis_plus_rot_as_list, cmocean_gray
-from lib.xml_import import get_times
+from Ramanspektren.lib.allgemein import generate_filename
+from Ramanspektren.lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
+from Ramanspektren.lib.plotlygraphen import viridis_plus_rot_as_list, cmocean_gray
+from Ramanspektren.lib.xml_import import get_times
 
 
 

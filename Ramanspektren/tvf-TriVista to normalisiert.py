@@ -6,11 +6,11 @@ output file: ein DataFrame mit wellenzahlen in Zeilen und Frames in Spalten mit 
 
 
 import os
-from lib.xml_import import get_positions
+from Ramanspektren.lib.xml_import import get_positions
 from lib import analyte
-from lib.allgemein import generate_filename
-from lib.baseline_corr import baselinecorrection
-from lib.xml_import import get_intensities
+from Ramanspektren.lib.allgemein import generate_filename
+from Ramanspektren.lib.baseline_corr import baselinecorrection
+from Ramanspektren.lib.xml_import import get_intensities
 
 
 suffix_for_new_filename = '_normalisiert.csv'

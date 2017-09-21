@@ -1,6 +1,6 @@
 import plotly
 from plotly import graph_objs as go
-from lib.allgemein import generate_filename
+from Ramanspektren.lib.allgemein import generate_filename
 
 
 grenzfarbe = 0.7
@@ -157,14 +157,14 @@ def plotly_zeitlVerlauf_2dscatter_layout(
     return layout
 
 
-def plotly_Spectrum_2dscatter_layout(ind, xaxis_title, yaxis_title, range_nr, dtick_nr, ausan=False, positionsangabe='', annotation_y=''):
+def plotly_Spectrum_2dscatter_layout(ind, xaxis_title, yaxis_title, range_nr, dtick_nr, ausan=False, positionsangabe='', annotation_y='', graphwidth=800):
     layout = go.Layout(
         autosize=False,
-        width=800,
+        width=graphwidth,
         height=430,
         showlegend=True,
         legend=dict(
-            x=0.85, y=1,
+            x=0.05, y=1,
             font=dict(family='Arial, sans-serif',
                       size=16,
                       color='#000000')),

@@ -9,10 +9,10 @@ import os
 
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
-from lib.allgemein import generate_filename
-from lib.plotlygraphen import plotly_Spectrum_2dscatter_layout
-from lib.xml_import import get_intensities
-from lib.xml_import import get_intensities
+from Ramanspektren.lib.allgemein import generate_filename
+from Ramanspektren.lib.plotlygraphen import plotly_Spectrum_2dscatter_layout
+from Ramanspektren.lib.xml_import import get_intensities
+from Ramanspektren.lib.xml_import import get_intensities
 
 suffix_for_new_filename = '_Accumulationen.html'
 band_start = 1605

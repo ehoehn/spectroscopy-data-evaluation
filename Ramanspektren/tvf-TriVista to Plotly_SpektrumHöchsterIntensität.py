@@ -9,11 +9,11 @@ import os
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
 from lib import analyte
-from lib.allgemein import generate_filename
-from lib.auswertung import compute_frame_with_highest_intensity
-from lib.xml_import import get_intensities
-from lib.xml_import import get_positions
-from lib.plotlygraphen import plotly_Spectrum_2dscatter_layout
+from Ramanspektren.lib.allgemein import generate_filename
+from Ramanspektren.lib.auswertung import compute_frame_with_highest_intensity
+from Ramanspektren.lib.xml_import import get_intensities
+from Ramanspektren.lib.xml_import import get_positions
+from Ramanspektren.lib.plotlygraphen import plotly_Spectrum_2dscatter_layout
 
 
 suffix_for_new_filename = '_SpectrumMitHoesterIntensitaet.html'

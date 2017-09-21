@@ -1,8 +1,8 @@
 import os
 import pandas as pd
-from lib.allgemein import liste_in_floats_umwandeln
-from lib.xml_import import get_times
-from lib.plotlygraphen import plotly_y_dependent_of_x
+from Ramanspektren.lib.allgemein import liste_in_floats_umwandeln
+from Ramanspektren.lib.xml_import import get_times
+from Ramanspektren.lib.plotlygraphen import plotly_y_dependent_of_x
 
 
 suffix_for_new_filename = '_RegenerationVsVoltage.html'

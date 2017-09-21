@@ -9,14 +9,14 @@ import os
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
 from lib import analyte
-from lib.baseline_corr import baselinecorrection
-from lib.xml_import import get_intensities
-from lib.xml_import import get_positions
-from lib.allgemein import generate_filename
-from lib.auswertung import compute_wn_with_highest_intensity
-from lib.auswertung import grep_highest_intensity
-from lib.plotlygraphen import viridis_plus_rot, plotly_nach_positionen_3dscatter_layout
-from lib.plotlygraphen import plotly_nach_positionen_3dscatter_data
+from Ramanspektren.lib.baseline_corr import baselinecorrection
+from Ramanspektren.lib.xml_import import get_intensities
+from Ramanspektren.lib.xml_import import get_positions
+from Ramanspektren.lib.allgemein import generate_filename
+from Ramanspektren.lib.auswertung import compute_wn_with_highest_intensity
+from Ramanspektren.lib.auswertung import grep_highest_intensity
+from Ramanspektren.lib.plotlygraphen import viridis_plus_rot, plotly_nach_positionen_3dscatter_layout
+from Ramanspektren.lib.plotlygraphen import plotly_nach_positionen_3dscatter_data
 
 
 suffix_for_new_filename = '_graphMapping.html'

@@ -11,15 +11,15 @@ import pandas as pd
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
 from lib import analyte
-from lib.allgemein import generate_filename
-from lib.auswertung import compute_frame_with_lowest_intensity_from_smoothed
-from lib.auswertung import compute_wn_with_highest_intensity
-from lib.auswertung import grep_highest_intensity
-from lib.baseline_corr import baselinecorrection
-from lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
-from lib.xml_import import get_intensities
-from lib.xml_import import get_times
-from lib.auswertung import savitzkygolay_for_pandas
+from Ramanspektren.lib.allgemein import generate_filename
+from Ramanspektren.lib.auswertung import compute_frame_with_lowest_intensity_from_smoothed
+from Ramanspektren.lib.auswertung import compute_wn_with_highest_intensity
+from Ramanspektren.lib.auswertung import grep_highest_intensity
+from Ramanspektren.lib.baseline_corr import baselinecorrection
+from Ramanspektren.lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
+from Ramanspektren.lib.xml_import import get_intensities
+from Ramanspektren.lib.xml_import import get_times
+from Ramanspektren.lib.auswertung import savitzkygolay_for_pandas
 
 
 suffix_for_new_filename_zeitlVerlauf = '_smooth_graphzeitlVerlauf.html'
