@@ -107,7 +107,7 @@ def plotly_zeiten5spektren_in1graph(intensities, dateiname, suffix_for_new_filen
     layout = plotly_Spectrum_2dscatter_layout(ind, xaxis_title='rel. Wavenumber [cm<sup>-1</sup>]', yaxis_title='Intensity [a. u.]',
                                               range_nr=[50, 2000], dtick_nr=200, ausan=False, positionsangabe='', annotation_y='', graphwidth=800)
     fig = go.Figure(data=data, layout=layout)
-    plotly.offline.plot(fig, filename=nwfile) #, auto_open=False) # , image='png', image_filename=nwfile, image_width=800, image_height=430)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=False) # , image='png', image_filename=nwfile, image_width=800, image_height=430)
 
 
 

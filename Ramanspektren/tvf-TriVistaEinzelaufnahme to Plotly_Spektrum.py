@@ -6,7 +6,6 @@ output file: Graph mit Spektrum: Spektrum des Frames
 
 
 import os
-
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
 from Ramanspektren.lib.allgemein import generate_filename

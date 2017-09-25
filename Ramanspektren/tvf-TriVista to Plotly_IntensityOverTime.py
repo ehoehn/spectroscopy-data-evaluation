@@ -12,7 +12,7 @@ output file: band intensity over time after baseline correction
 #written by EvaMaria Hoehn
 
 
-from lib import analyte
+from Ramanspektren.lib import analyte
 
 
 suffix_for_new_filename = '_graphIntensityOverTime.html'

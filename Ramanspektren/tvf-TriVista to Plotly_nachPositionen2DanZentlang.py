@@ -8,7 +8,7 @@ output file: ein 2D-Graph mit Intensität gegen z-Position
 import os
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
-from lib import analyte
+from Ramanspektren.lib import analyte
 from Ramanspektren.lib.baseline_corr import baselinecorrection
 from Ramanspektren.lib.xml_import import get_intensities
 from Ramanspektren.lib.xml_import import get_positions

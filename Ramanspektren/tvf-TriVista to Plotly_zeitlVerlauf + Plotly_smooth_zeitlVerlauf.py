@@ -64,7 +64,7 @@ def plotly_zeitlVerlauf_vergl(df_korregiert, smoothed, times, dateiname, suffix_
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('_beiF1Analyt_beiF20ElektrolythFlussAn_beiF200ProgStart.tvf') or dateiname.endswith('_beiF1Analyt_beiF20ElektrolythFlussAn_beiF200ProgStart.TVF'):
+    if dateiname.endswith('_beiF1Analyt_beiF20ElektrolythFlussAn_beiF200SpannungAn_beiF300SpannungAus.tvf') or dateiname.endswith('_beiF1Analyt_beiF20ElektrolythFlussAn_beiF200SpannungAn_beiF300SpannungAus.TVF'):
         print(dateiname)
         intensities = get_intensities(dateiname)
 
@@ -79,7 +79,7 @@ for dateiname in os.listdir():
         df_korregiert = baselinecorrection(intensities, punkte_baseline)
         wn_with_highest_intensity = compute_wn_with_highest_intensity(df_korregiert, band_start, band_end)
         highest_intensity = grep_highest_intensity(df_korregiert, wn_with_highest_intensity)
-
+    #    print(highest_intensity.transpose())
         smoothed = scipy.signal.savgol_filter(highest_intensity.transpose(), window_length=21, polyorder=3, axis=0, mode='nearest')
         smoothed = smoothed.transpose()
         smoothed = pd.DataFrame(smoothed, index=['highest intensity [a. u.]'], columns=[df_korregiert.columns])

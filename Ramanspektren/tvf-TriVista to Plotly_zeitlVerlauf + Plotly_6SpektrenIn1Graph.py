@@ -11,7 +11,7 @@ from Ramanspektren.lib.allgemein import liste_in_floats_umwandeln
 import os
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
-from lib import analyte
+from Ramanspektren.lib import analyte
 from Ramanspektren.lib.allgemein import generate_filename
 from Ramanspektren.lib.auswertung import compute_wn_with_highest_intensity
 from Ramanspektren.lib.auswertung import compute_frame_with_lowest_intensity

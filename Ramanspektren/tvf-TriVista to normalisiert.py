@@ -7,7 +7,7 @@ output file: ein DataFrame mit wellenzahlen in Zeilen und Frames in Spalten mit 
 
 import os
 from Ramanspektren.lib.xml_import import get_positions
-from lib import analyte
+from Ramanspektren.lib import analyte
 from Ramanspektren.lib.allgemein import generate_filename
 from Ramanspektren.lib.baseline_corr import baselinecorrection
 from Ramanspektren.lib.xml_import import get_intensities

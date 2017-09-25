@@ -6,7 +6,7 @@ output file: eine Datei mit zeitl Verlauf in einer Tabelle nach baseline korrekt
 
 
 import os
-from lib import analyte
+from Ramanspektren.lib import analyte
 from Ramanspektren.lib.xml_import import get_intensities
 from Ramanspektren.lib.baseline_corr import baselinecorrection
 from Ramanspektren.lib.auswertung import compute_wn_with_highest_intensity

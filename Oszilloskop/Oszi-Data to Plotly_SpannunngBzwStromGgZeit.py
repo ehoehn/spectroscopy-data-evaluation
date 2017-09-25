@@ -23,6 +23,7 @@ def plotly_zeitlVerlauf_2dscatter_data(df):
 
     firstCol = df[str(df.columns[0])].values.tolist()
     secondCol = df['current [mA]'].values.tolist()
+    thirdCol = df['in chip voltage [V]'].values.tolist()
 
     # secondCol = list(map(abs, (df['Ch. A Current (uA)'] - df['Ch. B Current (uA)'])))
     # thirdCol = (df['Ch. A Voltage (V)'] - df['Ch. B Voltage (V)']) / ((df['Ch. A Current (uA)'] - df['Ch. B Current (uA)'])/1000000).values.tolist()
@@ -53,13 +54,13 @@ def plotly_zeitlVerlauf_2dscatter_data(df):
         line=go.Line(color="#000000", width=3),
         name='current [mA]',
         showlegend=True)
-    # trace2 = go.Scatter(
-    #     x=ind,
-    #     y=secondCol,
-    #     mode='lines',
-    #     line=go.Line(color="#FF0000", width=3),
-    #     name='Differenz Current (uA)',
-    #     showlegend=True)
+    trace3 = go.Scatter(
+        x=ind,
+        y=thirdCol,
+        mode='lines',
+        line=go.Line(color="#FF0000", width=3),
+        name='in chip voltage [V]',
+        showlegend=True)
     # trace3 = go.Scatter(
     #     x=ind,
     #     y=thirdCol,
@@ -75,7 +76,7 @@ def plotly_zeitlVerlauf_2dscatter_data(df):
     #     line=go.Line(color="#FF6666", width=3),
     #     name='Ch. B Current (uA)',
     #     showlegend=True)
-    data = [trace1, trace2] # , trace3, trace4]
+    data = [trace1, trace2, trace3] # , trace3, trace4]
     return data, ind
 
 def plotly_zeitlVerlauf_2dscatter_layout(
@@ -197,17 +198,18 @@ for dateiname in os.listdir():
     if dateiname.endswith('.csv') or dateiname.endswith('.CSV'):
         print(dateiname)
         with open(dateiname, 'r') as fd:
-            df = pd.read_csv(fd, sep=',', header=0, index_col=0, skiprows=16, names=['time [s]', 'voltage [V]', 'leer'])
+            df = pd.read_csv(fd, sep=',', header=0, index_col=0, skiprows=16, names=['time [s]', 'measured voltage [V]', 'leer'])
             del df['leer']
             df1 = df.replace('Null', np.nan)
             df1.dropna(axis=0, how='all', inplace=True)
             df2 = df1.apply(pd.to_numeric, errors='raise')
-            df2['current [A]'] = df2['voltage [V]']/used_resistor  # voltage is the measured voltage
+            # print(df2)
+            df2['current [A]'] = df2['measured voltage [V]']/used_resistor  # voltage is the measured voltage
             df2['current [mA]'] = df2['current [A]'] * 1000
             df2['current [µA]'] = df2['current [mA]'] * 1000
 
-            df2['voltage [V]'] = split_in_sections(df2['voltage [V]'], [34,145], applyed_voltage)
-            #  print(df2)  #  voltage is the voltage in the chip
+            df2['in chip voltage [V]'] = split_in_sections(df2['measured voltage [V]'], [34, 145], applyed_voltage)
+            # print(df2)  #  voltage is the voltage in the chip
 
             # wds.to_csv(dateiname + '_Widerstände.csv', sep=';', header=0)
             #
