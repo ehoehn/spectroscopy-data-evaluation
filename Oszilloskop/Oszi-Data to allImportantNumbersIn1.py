@@ -1,6 +1,6 @@
 '''
 imput file: .csv-Datei aus Osziloskop
-output file: eine Datei mit allen Kennzahlen
+output file: eine Datei mit allen Kennzahlen, die nach Glattung einer berechnet wurden
 '''
 #written by EvaMaria Hoehn
 
