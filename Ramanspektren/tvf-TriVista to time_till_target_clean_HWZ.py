@@ -10,6 +10,7 @@ import os
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
 from lib import analyte
+import pandas as pd
 from Ramanspektren.lib.allgemein import generate_filename
 from Ramanspektren.lib.auswertung import compute_frame_with_lowest_intensity_from_smoothed
 from Ramanspektren.lib.auswertung import compute_wn_with_highest_intensity
@@ -186,32 +187,34 @@ for dateiname in os.listdir():
         wn_with_highest_intensity = compute_wn_with_highest_intensity(df_korregiert, band_start, band_end)
         highest_intensity = grep_highest_intensity(df_korregiert, wn_with_highest_intensity)
         smoothed = savitzkygolay_for_pandas(highest_intensity, window_length=21, polyorder=3)
+        framenumber = compute_frame_with_lowest_intensity_from_smoothed(smoothed)
+        vonTangenteAus = smoothed - smoothed['Frame ' + str(framenumber)].values.tolist()[0]
 
         NoOfHWZ = 5     # wie viele Halbwertszeiten
         intNachHWZ = smoothed['Frame 200'] / (2**NoOfHWZ)
-        print(intNachHWZ)
-
-        framenumber = compute_frame_with_lowest_intensity_from_smoothed(smoothed)
-       # print(smoothed)
-      #  print(smoothed['Frame ' + str(framenumber)].values.tolist()[0])
-        vonTangenteAus = smoothed - smoothed['Frame ' + str(framenumber)].values.tolist()[0]
-        print(vonTangenteAus)
         SignalConsideredAway = vonTangenteAus.columns[vonTangenteAus.ix['highest intensity [a. u.]'] < (intNachHWZ.values.tolist()[0])]
-        #
         if len(SignalConsideredAway) == 0:
             print('Anzahl der Halbwertszeiten zu hoch gesetzt.')
+        timeTillReg = times[SignalConsideredAway[0]] - times['Frame 200']
+        print(timeTillReg)
 
+
+        # print(intNachHWZ)
+
+       # print(smoothed)
+      #  print(smoothed['Frame ' + str(framenumber)].values.tolist()[0])
+        # print(vonTangenteAus)
 
         #print(len(SignalConsideredAway))
-        print(SignalConsideredAway[0])
-        print(times[SignalConsideredAway[0]])
-        print(times['Frame 200'])
-        # print(times[SignalConsideredAway[0]] - times[FrameVoltageOn])
+        # print(SignalConsideredAway[0])
+        # print(times[SignalConsideredAway[0]])
+        # print(times['Frame 200'])
 
 
-        plotly_zeiten5spektren_in1graph(intensities, dateiname, suffix_for_new_filename_5spektren_in1graph)
 
-      #  plotly_zeitlVerlauf(smoothed, times, dateiname, suffix_for_new_filename_zeitlVerlauf, xaxis_title='Time [s]', yaxis_title='Intensity [a. u.]') #zeitl Verlauf nach baseline correktur
+      #  plotly_zeiten5spektren_in1graph(intensities, dateiname, suffix_for_new_filename_5spektren_in1graph)
+
+        plotly_zeitlVerlauf(smoothed, times, dateiname, suffix_for_new_filename_zeitlVerlauf, xaxis_title='Time [s]', yaxis_title='Intensity [a. u.]') #zeitl Verlauf nach baseline correktur
 
 
 
