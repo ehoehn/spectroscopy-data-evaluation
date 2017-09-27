@@ -5,7 +5,7 @@ from Ramanspektren.lib.xml_import import get_times
 from Ramanspektren.lib.plotlygraphen import plotly_y_dependent_of_x
 
 
-suffix_for_new_filename = '_RegVsVoltage.html'
+suffix_for_new_filename = '_RegenerationVsVoltage.html'
 
 
 '''
@@ -26,7 +26,7 @@ for dateiname in os.listdir():
             df2 = df.ix[:, 'Frame 1':'Frame 400'].apply(lambda x: x / df['Frame 200'] * 100, axis=0)  # Normalisierung
 #            print(df2)
 
-            x_values = df['in chip voltage [V]']
+            x_values = df['in chip resistance [Ohm]']
            # x_values = liste_in_floats_umwandeln(x_values)
             print(x_values)
 
@@ -34,7 +34,7 @@ for dateiname in os.listdir():
             y_values = 100 - interval.min(axis=1)
             print(y_values)
 
-            plotly_y_dependent_of_x(x_values, y_values, dateiname, suffix_for_new_filename,
+            plotly_y_dependent_of_x(x_values, y_values, dateiname, suffix_for_new_filename='_RegVsResistance.html',
                                     x_range=None, y_range=[0, 105],
-                                    x_dtick=2.5, y_dtick=10,
-                                    xaxis_title='voltage [V]', yaxis_title='signal decrease [%]')
+                                    x_dtick=5000, y_dtick=10,
+                                    xaxis_title='resistance [Ohm]', yaxis_title='signal decrease [%]')
