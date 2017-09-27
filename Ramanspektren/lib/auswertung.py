@@ -52,3 +52,7 @@ def savitzkygolay_for_pandas(df, window_length=21, polyorder=3):
     smoothed = pd.DataFrame(smoothed, index=[df.index], columns=[df.columns])
     return smoothed
 
+
+def savitzkygolay_for_malgucken(df, window_length=21, polyorder=3):
+    smoothed = scipy.signal.savgol_filter(df.transpose(), window_length, polyorder, axis=0, mode='nearest')  # https://docs.scipy.org/doc/scipy-0.16.1/reference/generated/scipy.signal.savgol_filter.html
+    return smoothed

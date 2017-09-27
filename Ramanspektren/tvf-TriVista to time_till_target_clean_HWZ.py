@@ -11,6 +11,7 @@ import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
 from lib import analyte
 import pandas as pd
+import numpy as np
 from Ramanspektren.lib.allgemein import generate_filename
 from Ramanspektren.lib.auswertung import compute_frame_with_lowest_intensity_from_smoothed
 from Ramanspektren.lib.auswertung import compute_wn_with_highest_intensity
@@ -190,13 +191,32 @@ for dateiname in os.listdir():
         framenumber = compute_frame_with_lowest_intensity_from_smoothed(smoothed)
         vonTangenteAus = smoothed - smoothed['Frame ' + str(framenumber)].values.tolist()[0]
 
-        NoOfHWZ = 5     # wie viele Halbwertszeiten
+        timeTillRegAfterDifferenzHWZ = []
+        NoOfHWZ_list = []
+        NoOfHWZ = 1     # wie viele Halbwertszeiten
         intNachHWZ = smoothed['Frame 200'] / (2**NoOfHWZ)
         SignalConsideredAway = vonTangenteAus.columns[vonTangenteAus.ix['highest intensity [a. u.]'] < (intNachHWZ.values.tolist()[0])]
-        if len(SignalConsideredAway) == 0:
-            print('Anzahl der Halbwertszeiten zu hoch gesetzt.')
         timeTillReg = times[SignalConsideredAway[0]] - times['Frame 200']
-        print(timeTillReg)
+
+        timeTillReg = np.float64(timeTillReg)
+        timeTillRegAfterDifferenzHWZ.append(timeTillReg)
+        NoOfHWZ_list.append(NoOfHWZ)
+        while len(SignalConsideredAway) > 1:
+            NoOfHWZ = NoOfHWZ + 1  # wie viele Halbwertszeiten
+            intNachHWZ = smoothed['Frame 200'] / (2 ** NoOfHWZ)
+            SignalConsideredAway = vonTangenteAus.columns[vonTangenteAus.ix['highest intensity [a. u.]'] < (intNachHWZ.values.tolist()[0])]
+            timeTillReg = times[SignalConsideredAway[0]] - times['Frame 200']
+            timeTillReg = np.float64(timeTillReg)
+            timeTillRegAfterDifferenzHWZ.append(timeTillReg)
+            NoOfHWZ_list.append(NoOfHWZ)
+          #  print(timeTillRegAfterDifferenzHWZ)
+
+
+        print(NoOfHWZ_list)
+        print(timeTillRegAfterDifferenzHWZ)
+        df_timeTillRegAfterDifferentHZW = pd.DataFrame(timeTillRegAfterDifferenzHWZ, index=[NoOfHWZ_list], columns=[dateiname])
+        df_timeTillRegAfterDifferentHZW = df_timeTillRegAfterDifferentHZW.transpose()
+        print(df_timeTillRegAfterDifferentHZW)
 
 
         # print(intNachHWZ)

@@ -60,7 +60,7 @@ def plotly_zeitlVerlauf_vergl(df_korregiert, smoothed, times, dateiname, suffix_
     nwfile = generate_filename(dateiname, suffix_for_new_filename_zeitlVerlauf)
     data, ind = plotly_zeitlVerlauf_2dscatter_data(df_korregiert, smoothed, times)
     fig = go.Figure(data=data, layout=plotly_zeitlVerlauf_2dscatter_layout(ind, xaxis_title, yaxis_title))
-    plotly.offline.plot(fig, filename=nwfile, auto_open=False) # , image='png', image_filename=nwfile, image_width=800, image_height=430)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=True) # , image='png', image_filename=nwfile, image_width=800, image_height=430)
 
 
 for dateiname in os.listdir():
@@ -80,7 +80,7 @@ for dateiname in os.listdir():
         wn_with_highest_intensity = compute_wn_with_highest_intensity(df_korregiert, band_start, band_end)
         highest_intensity = grep_highest_intensity(df_korregiert, wn_with_highest_intensity)
     #    print(highest_intensity.transpose())
-        smoothed = scipy.signal.savgol_filter(highest_intensity.transpose(), window_length=21, polyorder=3, axis=0, mode='nearest')
+        smoothed = scipy.signal.savgol_filter(highest_intensity.transpose(), window_length=21, polyorder=4, axis=0, mode='nearest')
         smoothed = smoothed.transpose()
         smoothed = pd.DataFrame(smoothed, index=['highest intensity [a. u.]'], columns=[df_korregiert.columns])
 
