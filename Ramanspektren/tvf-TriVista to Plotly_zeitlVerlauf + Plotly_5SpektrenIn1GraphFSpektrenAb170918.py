@@ -99,6 +99,7 @@ def plotly_zeiten5spektren_in1graph_2dscatter_data(intensities, framenumber):
     #print([trace1, trace2, trace3])
     return [trace1, trace2, trace3, trace4, trace6], ind
 
+
 def plotly_zeiten5spektren_in1graph(intensities, dateiname, suffix_for_new_filename_3spektren_in1graph):
     framenumber = compute_frame_with_lowest_intensity(intensities, band_start, band_end)
     #print(framenumber)
