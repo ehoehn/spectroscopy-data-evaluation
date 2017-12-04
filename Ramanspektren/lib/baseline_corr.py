@@ -1,6 +1,7 @@
 import pandas as pd
 import regex as re
 from scipy import stats
+from Ramanspektren.lib.allgemein import liste_in_string_umwandeln
 
 
 def baselinecorrection(intensities, punkte_baseline):
@@ -19,6 +20,7 @@ def get_spectrum_values(df,punkte_baseline):
         for k in ind:
             if re.match(str(punkte_baseline[i]) + '\.[0-9]+', str(k)):
                 ks.append(k)
+                break
     return ks
 
 
@@ -46,7 +48,7 @@ def split_in_baselines(frame, spectrum_values, framenummer):
             points = [spectrum_values[i], spectrum_values[i + 1]]
             kurvenabschnitt = copy_frame.ix[points[0]:points[1]]
             gefittet = fitten(kurvenabschnitt, spectrum_values, i, framenummer)
-            b = gefittet.ix[spectrum_values[i] + 1:spectrum_values[i + 1]]
+            b = gefittet.iloc[1:]
             a = a.append(b)
     nframe = copy_frame - copy_frame + a
     nframe = nframe.fillna(0)

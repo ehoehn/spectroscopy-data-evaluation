@@ -8,7 +8,7 @@ output file: output file: ein 3D-Graph mit Intensität gegen z-Position
 
 import os
 import plotly
-from lib import analyte
+from Ramanspektren.lib import analyte
 from Ramanspektren.lib.allgemein import generate_filename
 from Ramanspektren.lib.auswertung import compute_wn_with_highest_intensity
 from Ramanspektren.lib.auswertung import grep_highest_intensity
@@ -20,9 +20,9 @@ from Ramanspektren.lib.plotlygraphen import plotly_nach_positionen_3dscatter_dat
 
 
 suffix_for_new_filename = '_graphMapping.html'
-punkte_baseline = analyte.kristallviolett()
-band_start = 1605
-band_end = 1630
+punkte_baseline = analyte.methylbenzenethiol3()
+band_start = 979
+band_end = 1018
 
 
 def plotly_nach_positionen(highest_intensity, positions, dateiname, suffix_for_new_filename):
@@ -32,7 +32,7 @@ def plotly_nach_positionen(highest_intensity, positions, dateiname, suffix_for_n
                                                           z_positions=positions.ix['z [µm]'].values.tolist(),
                                                           highest_intensities=highest_intensity.ix['highest intensity [a. u.]'].values.tolist()
                                                           ), layout=plotly_nach_positionen_3dscatter_layout(x_lables=False, y_lables=False, z_lables=True))
-    plotly.offline.plot(fig, filename=nwfile,  image_filename=nwfile, auto_open=False)  #, image='png', image_width=1600, image_height=860)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=False)  #, image_filename=nwfile, image='png', image_width=1600, image_height=860)
 
 
 

@@ -20,9 +20,9 @@ from Ramanspektren.lib.plotlygraphen import plotly_nach_positionen_3dscatter_dat
 
 
 suffix_for_new_filename = '_graphMapping.html'
-punkte_baseline = analyte.kristallviolett()
-band_start = 1605
-band_end = 1630
+punkte_baseline = analyte.methylbenzenethiol3()
+band_start = 979
+band_end = 1018
 
 
 def plotly_nach_positionen(highest_intensity, positions, dateiname):
@@ -32,7 +32,7 @@ def plotly_nach_positionen(highest_intensity, positions, dateiname):
                                                           z_positions=[0] * len(positions.ix['y [µm]'].values.tolist()),
                                                           highest_intensities=highest_intensity.ix['highest intensity [a. u.]'].values.tolist()
                                                           ), layout=plotly_nach_positionen_3dscatter_layout(x_lables=True, y_lables=True, z_lables=False))
-    plotly.offline.plot(fig, filename=nwfile,  image_filename=nwfile, auto_open=False)  #, image='png', image_width=1600, image_height=860)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=False)  #, image_filename=nwfile, image='png', image_width=1600, image_height=860)
 
 
 

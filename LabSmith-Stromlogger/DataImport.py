@@ -146,7 +146,7 @@ def plotly_zeitlVerlauf(df, dateiname):
     nwfile = plotly_generate_filename_zeitlVerlauf(dateiname)
     data, ind = plotly_nach_zeiten_2dscatter_data(df)
     fig = go.Figure(data=data, layout=plotly_nach_zeiten_2dscatter_layout(ind))
-    plotly.offline.plot(fig, filename=nwfile) #, image='png', image_filename=nwfile) #, image_width=800, image_height=430)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=False) #, image='png', image_filename=nwfile) #, image_width=800, image_height=430)
 
 
 
@@ -157,6 +157,9 @@ for dateiname in os.listdir():
     if dateiname.endswith('.trc') or dateiname.endswith('.TRC'):
         print(dateiname)
         with open(dateiname, 'r') as fd:
-            df = pd.read_csv(fd, sep='\t', header=0, index_col=0)
-            print(df)
-            plotly_zeitlVerlauf(df, dateiname)
+            try:
+                df = pd.read_csv(fd, sep='\t', header=0, index_col=0)
+                #print(df)
+                plotly_zeitlVerlauf(df, dateiname)
+            except:
+                print('alles doof')

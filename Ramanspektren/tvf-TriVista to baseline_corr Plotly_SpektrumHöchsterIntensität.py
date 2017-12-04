@@ -8,15 +8,16 @@ output file: Graph mit Spektrum: Spektrum des Frames mit höchster Intensität
 import os
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
+from Ramanspektren.lib.auswertung import compute_frame_with_highest_intensity
+from Ramanspektren.lib.plotlygraphen import plotly_Spectrum_2dscatter_layout
 from Ramanspektren.lib import analyte
 from Ramanspektren.lib.allgemein import generate_filename
-from Ramanspektren.lib.auswertung import compute_frame_with_highest_intensity
+from Ramanspektren.lib.baseline_corr import baselinecorrection
 from Ramanspektren.lib.xml_import import get_intensities
 from Ramanspektren.lib.xml_import import get_positions
-from Ramanspektren.lib.plotlygraphen import plotly_Spectrum_2dscatter_layout
 
 
-suffix_for_new_filename = '_SpectrumMitHoesterIntensitaet.html'
+suffix_for_new_filename = '_SpectrumMitHoesterIntensitaet_bestNachBaselineCorr.html'
 punkte_baseline = analyte.methylbenzenethiol3()
 band_start = 979
 band_end = 1018
@@ -51,9 +52,11 @@ def plotly_SpectrumMitHoesterIntensitaet_2dscatter_data(intensities, framenumber
     return [trace3], ind  #[trace1, trace2, trace3]
 
 def plotly_SpectrumMitHoesterIntensitaet(intensities, dateiname):
-    framenumber = compute_frame_with_highest_intensity(intensities, band_start, band_end)
+    df_korregiert = baselinecorrection(intensities, punkte_baseline)
+    framenumber = compute_frame_with_highest_intensity(df_korregiert, band_start, band_end)
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     data, ind = plotly_SpectrumMitHoesterIntensitaet_2dscatter_data(intensities, framenumber)
+   # df_korregiert.to_csv('output.csv', sep=';')
 
     try:
         positions = get_positions(dateiname)

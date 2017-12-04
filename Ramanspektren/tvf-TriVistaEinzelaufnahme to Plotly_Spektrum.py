@@ -14,8 +14,8 @@ from Ramanspektren.lib.xml_import import get_intensities
 
 
 suffix_for_new_filename = '_1Spectrum.html'
-band_start = 1605
-band_end = 1630
+band_start = 979
+band_end = 1018
 
 
 def plotly_Spectrum_1Spektrum_2dscatter_data(intensities, framenumber):

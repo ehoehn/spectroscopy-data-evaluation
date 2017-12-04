@@ -21,6 +21,7 @@ for dateiname in os.listdir():
     if dateiname.endswith('.tvf') or dateiname.endswith('.TVF'):
         positions = get_positions(dateiname)
         intensities = get_intensities(dateiname)
+      #  print(intensities)
         df_korregiert = baselinecorrection(intensities, punkte_baseline)
         nwfile = generate_filename(dateiname, suffix_for_new_filename)
 

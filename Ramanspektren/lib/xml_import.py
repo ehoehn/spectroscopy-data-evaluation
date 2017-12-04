@@ -56,7 +56,8 @@ def get_relwavenumber(dateiname):
     predf = liste_in_floats_umwandeln(relwavenumber)
     del predf[0]
     df1 = pd.DataFrame(predf, columns=['relWavenumber [1/cm]'])
-    relwavenumbers = 1 / 473 * 10000000 - 1 / df1 * 10000000
+    excitationwl = float(obj.XmlMain.Documents.Document.xDim.Calibration['LaserWave'])
+    relwavenumbers = 1 / excitationwl * 10000000 - 1 / df1 * 10000000
     return relwavenumbers
 
 

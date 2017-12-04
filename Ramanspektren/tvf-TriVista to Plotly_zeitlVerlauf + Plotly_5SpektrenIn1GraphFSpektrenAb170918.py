@@ -33,7 +33,8 @@ band_end = 1630
 
 def plotly_zeitlVerlauf_2dscatter_data(highest_intensity, zeiten):
     ind = zeiten.ix['time [s]'].values.tolist()
-    #print(ind)
+    print(ind)
+    print(highest_intensity)
     firstCol = highest_intensity.ix['highest intensity [a. u.]'].values.tolist()
     #print(firstCol)
     # for i in range(0, len(ind)):
@@ -62,47 +63,47 @@ def plotly_zeiten5spektren_in1graph_2dscatter_data(intensities, framenumber):
     secondCol = intensities['Frame 20'].values.tolist()
     thirdCol = intensities['Frame 200'].values.tolist()
     fourthCol = intensities['Frame 300'].values.tolist()
-    sixthCol = intensities['Frame ' + str(framenumber)].values.tolist()
+    fifthCol = intensities['Frame ' + str(framenumber)].values.tolist()
 
     trace1 = go.Scatter(
         x=ind,
         y=firstCol,
         mode='lines',
-        line=go.Line(color="#660066", width=3),
+        line=go.Line(color="#9400D3", width=3),
         name='Frame 1')
     trace2 = go.Scatter(
         x=ind,
         y=secondCol,
         mode='lines',
-        line=go.Line(color="#0000cd", width=3),
-        name='Frame 20 - flow on')
+        line=go.Line(color="#0000FF", width=3),
+        name='flow on')
     trace3 = go.Scatter(
         x=ind,
         y=thirdCol,
         mode='lines',
-        line=go.Line(color="#009933", width=3),
-        name='Frame 200 - At the start of regeration (voltage on)')
+        line=go.Line(color="#000000", width=3),
+        name='voltage on')
     trace4 = go.Scatter(
         x=ind,
         y=fourthCol,
         mode='lines',
-        line=go.Line(color="#000000", width=3),
-        name='Frame 300 - voltage off')
-    trace6 = go.Scatter(
+        line=go.Line(color="#FFFF00", width=3),
+        name='voltage off')
+    trace5 = go.Scatter(
         x=ind,
-        y=sixthCol,
+        y=fifthCol,
         mode='lines',
         line=go.Line(color="#ff0000", width=3),
         name='position of least intense signal')
 
   # name='Frame ' + str(framenumber))
     #print([trace1, trace2, trace3])
-    return [trace1, trace2, trace3, trace4, trace6], ind
+    return [trace1, trace2, trace3, trace4, trace5], ind
 
 
 def plotly_zeiten5spektren_in1graph(intensities, dateiname, suffix_for_new_filename_3spektren_in1graph):
     framenumber = compute_frame_with_lowest_intensity(intensities, band_start, band_end)
-    #print(framenumber)
+    print(framenumber)
     nwfile = generate_filename(dateiname, suffix_for_new_filename_3spektren_in1graph)
     data, ind = plotly_zeiten5spektren_in1graph_2dscatter_data(intensities, framenumber)
     layout = plotly_Spectrum_2dscatter_layout(ind, xaxis_title='rel. Wavenumber [cm<sup>-1</sup>]', yaxis_title='Intensity [a. u.]',
