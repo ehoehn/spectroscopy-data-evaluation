@@ -17,9 +17,9 @@ from Ramanspektren.lib.plotlygraphen import plotly_Spectrum_2dscatter_layout
 
 
 suffix_for_new_filename = '_SpectrumMitHoesterIntensitaet.html'
-punkte_baseline = analyte.methylbenzenethiol3()
-band_start = 979
-band_end = 1018
+punkte_baseline = analyte.kristallviolett()
+band_start = 1605
+band_end = 1630
 
 
 def plotly_SpectrumMitHoesterIntensitaet_2dscatter_data(intensities, framenumber):
