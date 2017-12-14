@@ -6,11 +6,11 @@ output file: eine Datei mit zeitl Verlauf in einer Tabelle nach baseline korrekt
 
 
 import os
-from Ramanspektren.lib import analyte
-from Ramanspektren.lib.xml_import import get_intensities
-from Ramanspektren.lib.baseline_corr import baselinecorrection
-from Ramanspektren.lib.auswertung import compute_wn_with_highest_intensity
-from Ramanspektren.lib.auswertung import grep_highest_intensity
+from lib import analyte
+from lib.xml_import import get_intensities
+from lib.baseline_corr import baselinecorrection
+from lib.auswertung import compute_wn_with_highest_intensity
+from lib.auswertung import grep_highest_intensity
 
 
 # suffix_for_new_filename = '_graphMapping.html'

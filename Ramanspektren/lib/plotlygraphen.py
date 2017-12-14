@@ -108,9 +108,9 @@ def plotly_zeitlVerlauf_2dscatter_layout(
     layout = go.Layout(
         autosize=False,
         width=graphwidth,
-        height=430,
+        height=500,
         showlegend=True,
-        legend=dict(x=0.85, y=1),
+        legend=dict(x=0.85, y=-1.3),
         xaxis=dict(
             title='<b>' + xaxis_title + '</b>',
             titlefont=dict(family='Arial, sans-serif',

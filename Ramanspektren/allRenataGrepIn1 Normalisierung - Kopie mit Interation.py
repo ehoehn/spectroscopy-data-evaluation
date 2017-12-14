@@ -2,10 +2,10 @@ import os
 import pandas as pd
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
-from Ramanspektren.lib.allgemein import generate_filename
-from Ramanspektren.lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
-from Ramanspektren.lib.plotlygraphen import viridis_plus_rot_as_list
-from Ramanspektren.lib.xml_import import get_times
+from lib.allgemein import generate_filename
+from lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
+from lib.plotlygraphen import viridis_plus_rot_as_list
+from lib.xml_import import get_times
 
 
 
@@ -44,7 +44,7 @@ def plotly_zeitlVerlauf_2dscatter_data(highest_intensity):
 def plotly_zeitlVerlauf(df, dateiname, suffix_for_new_filename, xaxis_title, yaxis_title):
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     data, ind = plotly_zeitlVerlauf_2dscatter_data(df)
-    fig = go.Figure(data=data, layout=plotly_zeitlVerlauf_2dscatter_layout(ind, xaxis_title, yaxis_title, yrangestart=0, yrangestop=105))
+    fig = go.Figure(data=data, layout=plotly_zeitlVerlauf_2dscatter_layout(ind, xaxis_title, yaxis_title, yrangestart=0, yrangestop=110))
     plotly.offline.plot(fig, filename=nwfile) # , image='png', image_filename=nwfile, image_width=800, image_height=430)
 
 
@@ -63,6 +63,6 @@ for dateiname in os.listdir():
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=0, sep=';')
-            df2 = df.apply(lambda x: x / df['Frame 200'] * 100, axis=0)  # Normalisierung
+            df2 = df.apply(lambda x: x / df['Frame 182'] * 100, axis=0)  # Normalisierung
 
             plotly_zeitlVerlauf(df2, dateiname, suffix_for_new_filename, xaxis_title='Frame', yaxis_title='Intensity [a. u.]')
