@@ -1,7 +1,7 @@
 import pandas as pd
 import regex as re
 from scipy import stats
-from Ramanspektren.lib.allgemein import liste_in_string_umwandeln
+from lib.allgemein import liste_in_string_umwandeln
 
 
 def baselinecorrection(intensities, punkte_baseline):

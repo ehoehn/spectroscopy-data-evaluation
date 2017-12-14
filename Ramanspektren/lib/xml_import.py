@@ -1,4 +1,4 @@
-from Ramanspektren.lib.allgemein import liste_in_floats_umwandeln
+from lib.allgemein import liste_in_floats_umwandeln
 import pandas as pd
 import untangle
 from decimal import *

@@ -8,15 +8,15 @@ output file: ein Graph mit Positionen eines Mappings xyz
 import os
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
-from Ramanspektren.lib.xml_import import get_positions
+from lib.xml_import import get_positions
 from lib import analyte
-from Ramanspektren.lib.xml_import import get_intensities
-from Ramanspektren.lib.baseline_corr import baselinecorrection
-from Ramanspektren.lib.allgemein import generate_filename
-from Ramanspektren.lib.auswertung import compute_wn_with_highest_intensity
-from Ramanspektren.lib.auswertung import grep_highest_intensity
-from Ramanspektren.lib.plotlygraphen import viridis_plus_rot, plotly_nach_positionen_3dscatter_layout
-from Ramanspektren.lib.plotlygraphen import plotly_nach_positionen_3dscatter_data
+from lib.xml_import import get_intensities
+from lib.baseline_corr import baselinecorrection
+from lib.allgemein import generate_filename
+from lib.auswertung import compute_wn_with_highest_intensity
+from lib.auswertung import grep_highest_intensity
+from lib.plotlygraphen import viridis_plus_rot, plotly_nach_positionen_3dscatter_layout
+from lib.plotlygraphen import plotly_nach_positionen_3dscatter_data
 
 
 suffix_for_new_filename = '_graphMapping.html'
@@ -32,12 +32,12 @@ def plotly_nach_positionen(highest_intensity, positions, dateiname):
                                                           z_positions=positions.ix['z [µm]'].values.tolist(),
                                                           highest_intensities=highest_intensity.ix['highest intensity [a. u.]'].values.tolist()
                                                           ), layout=plotly_nach_positionen_3dscatter_layout(x_lables=True, y_lables=True, z_lables=True))
-    plotly.offline.plot(fig, filename=nwfile,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
+    plotly.offline.plot(fig, filename=nwfile,  image_filename=nwfile, auto_open=False)  #, image='png', image_width=1600, image_height=860)
 
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('xyz.tvf') or dateiname.endswith('xyz.TVF'):
+    if dateiname.endswith('.tvf') or dateiname.endswith('xyz.TVF'):
         print(dateiname)
         intensities = get_intensities(dateiname)
         df_korregiert = baselinecorrection(intensities, punkte_baseline)

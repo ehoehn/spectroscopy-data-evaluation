@@ -6,6 +6,7 @@ output file: zeitlicher Verlauf der Frames nach baseline correctur
 
 
 import os
+import pandas as pd
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
 from lib import analyte
@@ -17,6 +18,7 @@ from lib.allgemein import generate_filename
 from lib.auswertung import compute_wn_with_highest_intensity
 from lib.auswertung import grep_highest_intensity
 from lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
+from lib.allgemein import liste_in_floats_umwandeln
 
 
 suffix_for_new_filename = '_baselinecor_graphzeitlVerlauf.html'
@@ -26,7 +28,12 @@ band_end = 1630
 
 
 def plotly_zeitlVerlauf_2dscatter_data(highest_intensity, zeiten):
-    ind = zeiten.ix['time [s]'].values.tolist()
+    #ind = zeiten.ix['time [s]'].values.tolist()
+    numbers = []
+    for i in highest_intensity:
+        number = i.split(' ')
+        numbers.append(number[1])
+    ind = numbers    
     firstCol = highest_intensity.ix['highest intensity [a. u.]'].values.tolist()
     #print(firstCol)
     # for i in range(0, len(ind)):
@@ -58,5 +65,7 @@ for dateiname in os.listdir():
         highest_intensity = grep_highest_intensity(df_korregiert, wn_with_highest_intensity)
 
         times = get_times(dateiname)
-        plotly_zeitlVerlauf(highest_intensity, times, dateiname, suffix_for_new_filename, xaxis_title='Time [s]', yaxis_title='Intensity [a. u.]') #zeitl Verlauf nach baseline correktur
+ 
+       
+        plotly_zeitlVerlauf(highest_intensity, times, dateiname, suffix_for_new_filename, xaxis_title='Frame', yaxis_title='Intensity [a. u.]') #zeitl Verlauf nach baseline correktur
 

@@ -37,7 +37,7 @@ def plotly_nach_positionen(highest_intensity, positions, dateiname, suffix_for_n
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('uche.tvf') or dateiname.endswith('uche.TVF'):
+    if dateiname.endswith('.tvf') or dateiname.endswith('uche.TVF'):
         print(dateiname)
         intensities = get_intensities(dateiname)
         df_korregiert = baselinecorrection(intensities, punkte_baseline)
