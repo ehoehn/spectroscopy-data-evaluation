@@ -1,0 +1,82 @@
+'''
+punkte_baseline are the wavenumbers were the spectrum is taken and pulled down to the baseline.
+band_start: is the start of the interval where the script searches for the highest intensity. this highest intensity is than shown over time.
+band_end: is the end of that interval.
+'''
+
+
+'''
+imput file: .tvf-TriVista-File
+output file: band intensity over time after baseline correction
+'''
+#written by EvaMaria Hoehn
+
+
+import lib.analyte
+
+
+#suffix_for_new_filename = '_graphIntensityOverTime.csv'
+punkte_baseline = lib.analyte.kristallviolett_al_Raja()
+band_start = 1152
+band_end = 1215
+
+
+import os
+import plotly.graph_objs as go  #import Scatter, Layout
+import plotly
+import scipy.signal
+import pandas as pd
+from lib.allgemein import generate_filename
+from lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
+
+
+def plotly_zeitlVerlauf_2dscatter_data(highest_intensity, zeiten):
+    ind = zeiten.ix['time [s]'].values.tolist()
+    #print(ind)
+    firstCol = highest_intensity.ix['highest intensity [a. u.]'].values.tolist()
+    #print(firstCol)
+    # for i in range(0, len(ind)):
+    #     ind[i] = i + 1
+    trace1 = go.Scatter(
+        x=ind,
+        y=firstCol,
+        mode='lines',
+        line=go.Line(color="#000000", width=3),
+        name='Verlauf',
+        showlegend=False)
+    data = [trace1]
+    return data, ind
+
+
+def plotly_zeitlVerlauf_vergl(df_korregiert, smoothed, times, nwfile, xaxis_title, yaxis_title):
+    data, ind = plotly_zeitlVerlauf_2dscatter_data(df_korregiert, smoothed, times)
+    fig = go.Figure(data=data, layout=plotly_zeitlVerlauf_2dscatter_layout(ind, xaxis_title, yaxis_title))
+    plotly.offline.plot(fig, filename=nwfile) #, auto_open=False) # , image='png', image_filename=nwfile, image_width=800, image_height=430)
+
+
+
+for dateiname in os.listdir():
+    if dateiname.endswith('_justExport.csv') or dateiname.endswith('_justExport.CSV'):
+        print(dateiname)
+        with open(dateiname, 'r') as fd:
+            df = pd.read_csv(fd, sep=';', header=0, index_col=0) #, names=['time [s]', 'measured voltage [V]', 'leer'])
+            # df1 = df.apply(pd.to_numeric, errors='raise')
+            intensities = pd.DataFrame(df.iloc[1:,0:])
+            times = pd.DataFrame(df.iloc[0, 0:]).transpose()
+
+            smoothed_intensities = scipy.signal.savgol_filter(intensities, window_length=9, polyorder=1, axis=0, mode='nearest')
+            smoothed_intensities = pd.DataFrame(smoothed_intensities, index=intensities.index, columns=intensities.columns)
+
+          #  df_smoothed_intensities = pd.DataFrame(data=smoothed_intensities.iloc[:, :], index=smoothed_intensities.index, columns=smoothed_intensities.columns, copy=True)
+           # print(df_smoothed_intensities.columns)
+         #   df_times = pd.DataFrame(data=times.iloc[:, :], index=times.index, columns=times.columns, copy=True)
+        #    print(df_times)
+            all = times.append(smoothed_intensities)
+
+            #   print('_'.join(dateiname.split('_')[0:-1]))
+            all.to_csv(generate_filename('_'.join(dateiname.split('_')[0:-1]) + '.csv', '_window9_order4_smoothed.csv'), sep=';')
+
+        # plotly_zeitlVerlauf_vergl(pd.DataFrame(intensities['Frame 5']), smoothed_intensities['Frame 5'], times,
+        #                           generate_filename(dateiname, '_window_length=9, polyorder=1.html'),
+        #                           xaxis_title='Time [s]',
+        #                           yaxis_title='Intensity [a. u.]')  # zeitl Verlauf nach baseline correktur
