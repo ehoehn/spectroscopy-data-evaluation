@@ -14,9 +14,9 @@ from lib.auswertung import grep_highest_intensity
 
 
 # suffix_for_new_filename = '_graphMapping.html'
-punkte_baseline = analyte.kristallviolett()
-band_start = 1605
-band_end = 1630
+punkte_baseline = lib.analyte.kristallviolett_al_Raja()
+band_start = 1152
+band_end = 1215
 
 
 list_dateiname = []
