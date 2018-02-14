@@ -21,3 +21,4 @@ for dateiname in os.listdir():
             error_y = df['error [a. u.]'].values.tolist()
 
           #  plotly_xy_yFehler(x_values=x, y_values=y, errory=error_y, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='intensity [a. u.]')
+

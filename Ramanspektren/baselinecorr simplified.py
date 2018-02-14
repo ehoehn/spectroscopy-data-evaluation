@@ -63,6 +63,6 @@ for dateiname in os.listdir():
             df = pd.read_csv(fd, sep=';', header=0, index_col=0) #, names=['time [s]', 'measured voltage [V]', 'leer'])
             intensities = pd.DataFrame(df.iloc[1:, 0:])
             times = pd.DataFrame(df.iloc[0, 0:]).transpose()
-            df_out = intensities.transform(lambda x: x - x.min())
+            df_out = intensities.apply(lambda x: x - x.min())
             all = times.append(df_out)
             all.to_csv(generate_filename(dateiname, '_drawnDown.csv'), sep=';')
