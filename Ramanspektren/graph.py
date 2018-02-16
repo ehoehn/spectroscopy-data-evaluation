@@ -25,9 +25,9 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     names = []
     for k in y_values:
         nr = k.split('_')
-        n = nr[7]
-      #  r = n.split('n')
-        #print(r)
+        n = nr[5]
+        print(nr)
+        r = n.split('n')
         names.append(n)
 
     traces = []
@@ -143,8 +143,9 @@ for dateiname in os.listdir():
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=0, sep=';')
-            #print(df)
-            x = df.iloc[:,0]
-            y = pd.DataFrame(df.iloc[:,1:])
-
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='intensity [a. u.]')
+         #   print(df)
+            x = df.iloc[:, 0]
+            print(x)
+            y = pd.DataFrame(df.iloc[:, 1:])
+            print(y)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='norm. intensity [a. u.]')

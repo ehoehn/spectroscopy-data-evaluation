@@ -9,7 +9,7 @@ import os
 import lib.analyte
 from lib.xml_import import get_intensities
 from lib.baseline_corr import baselinecorrection
-from lib.auswertung import compute_wn_with_highest_intensity
+from lib.auswertung import compute_wn_with_highest_intensity_labelbased
 from lib.auswertung import grep_highest_intensity
 import pandas as pd
 
@@ -39,7 +39,9 @@ for i in range(0, len(list_dateiname)):
             df = pd.read_csv(fd, sep=';', header=0, index_col=0)  # , names=['time [s]', 'measured voltage [V]', 'leer'])
             times = pd.DataFrame(df.iloc[0, 0:]).transpose()
             intensities = pd.DataFrame(df.iloc[1:, 0:])
-            wn_with_highest_intensity = compute_wn_with_highest_intensity(intensities, band_start, band_end)
+        #    print(intensities)
+            wn_with_highest_intensity = compute_wn_with_highest_intensity_labelbased(intensities, band_start, band_end)
+         #   print(wn_with_highest_intensity)
             highest_intensity = pd.DataFrame(grep_highest_intensity(intensities, wn_with_highest_intensity))
             df_a = highest_intensity
             df_a = df_a.set_index([[list_dateiname[i]]])
@@ -50,12 +52,12 @@ for i in range(0, len(list_dateiname)):
             times = times.set_index([list(range(1, len(times.index) + 1))])
             times = times.transpose()
             df_a = times.append(df_a)
-        #  print(i)
+      #  print(df_a)
     if i is not 0:
         with open(list_dateiname[i]) as fd:
             df = pd.read_csv(fd, sep=';', header=0, index_col=0)  # , names=['time [s]', 'measured voltage [V]', 'leer'])
             intensities = pd.DataFrame(df.iloc[1:, 0:])
-            wn_with_highest_intensity = compute_wn_with_highest_intensity(intensities, band_start, band_end)
+            wn_with_highest_intensity = compute_wn_with_highest_intensity_labelbased(intensities, band_start, band_end)
             highest_intensity = pd.DataFrame(grep_highest_intensity(intensities, wn_with_highest_intensity))
             df_b = highest_intensity
             df_b = df_b.set_index([[list_dateiname[i]]])

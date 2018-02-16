@@ -62,6 +62,7 @@ for dateiname in os.listdir():
             df = pd.read_csv(fd, sep=';', header=0, index_col=0) #, names=['time [s]', 'measured voltage [V]', 'leer'])
             # df1 = df.apply(pd.to_numeric, errors='raise')
             intensities = pd.DataFrame(df.iloc[1:,0:])
+            print(intensities)
             times = pd.DataFrame(df.iloc[0, 0:]).transpose()
 
             smoothed_intensities = scipy.signal.savgol_filter(intensities, window_length=9, polyorder=1, axis=0, mode='nearest')

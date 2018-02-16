@@ -1,9 +1,25 @@
 import pandas as pd
 import scipy.signal
+import regex as re
 
 
 def compute_wn_with_highest_intensity(df_korregiert, band_start, band_end):
     interval = df_korregiert.ix[band_start:band_end]
+    wn_with_highest_intensity = interval.idxmax(axis=0)
+    return wn_with_highest_intensity
+
+def compute_wn_with_highest_intensity_labelbased(df, band_start, band_end):
+    ind = df.index.values.tolist()
+    k = []
+    for i in ind:
+        if re.match(str(band_start) + '\.[0-9]+', str(i)):
+    #        print(i)
+            break
+    for j in ind:
+        if re.match(str(band_end) + '\.[0-9]+', str(j)):
+     #       print(j)
+            break
+    interval = df.loc[i:j]
     wn_with_highest_intensity = interval.idxmax(axis=0)
     return wn_with_highest_intensity
 
@@ -31,6 +47,26 @@ def compute_frame_with_lowest_intensity(intensities, band_start, band_end):
     copy_intensities = intensities.copy()
     interval = copy_intensities.ix[band_start:band_end]
     band = interval.apply(max, axis=0)
+    lowest = band.idxmin()
+    dfn = lowest.split(' ')
+    framenumber = int(dfn[1])
+    return framenumber
+
+
+def compute_frame_with_lowest_intensity_labelbased(intensities, band_start, band_end):
+    ind = intensities.index.values.tolist()
+  #  print(ind)
+    k = []
+    for i in ind:
+        if re.match(str(band_start) + '\.[0-9]+', str(i)):
+            #        print(i)
+            break
+    for j in ind:
+        if re.match(str(band_end) + '\.[0-9]+', str(j)):
+            #       print(j)
+            break
+    interval = intensities.loc[i:j]
+    band = interval.idxmax(axis=0)
     lowest = band.idxmin()
     dfn = lowest.split(' ')
     framenumber = int(dfn[1])

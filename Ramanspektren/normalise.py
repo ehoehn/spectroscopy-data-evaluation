@@ -77,9 +77,14 @@ for dateiname in os.listdir():
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=0, sep=';')
-         #   print(df)
+           # print(df)
+            # times = pd.DataFrame(df.iloc[:, 0])
+            # print(times)
+         #   intensities = pd.DataFrame(df.iloc[:, 1:])
+           # print(intensities)
+          #  times = pd.DataFrame(df.iloc[0, 0:]).transpose()
+            #print(intensities.ix[19])
             df2 = df.apply(lambda x: x / df.ix[19] * 100, axis=1)
             df2['time [s]'] = df['time [s]']
-           # print(df2)
+         #   print(df2)
             df2.to_csv('allIndicatorBandsInOne_normalized.csv', sep=';')
-#            plotly_zeitlVerlauf(df2, dateiname, suffix_for_new_filename, axis_title='Frame', yaxis_title='Intensity [a. u.]')
