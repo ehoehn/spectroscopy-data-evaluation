@@ -15,9 +15,9 @@ import pandas as pd
 
 
 # suffix_for_new_filename = '_graphMapping.html'
-punkte_baseline = lib.analyte.kristallviolett_al_Raja()
-band_start = 1152
-band_end = 1215
+#punkte_baseline = lib.analyte.kristallviolett_al_Raja()
+band_start = 1440
+band_end = 1520
 
 
 # for dateiname in os.listdir():
@@ -30,7 +30,7 @@ band_end = 1215
 #             df_out.to_csv(generate_filename(dateiname, '_drawnDown.csv'), sep=';')
 list_dateiname = []
 for dateiname in os.listdir():
-    if dateiname.endswith('_drawnDown.csv') or dateiname.endswith('_drawnDown.CSV'):
+    if dateiname.endswith('_dD.csv') or dateiname.endswith('_drawnDown.csv'):
         print(dateiname)
         list_dateiname.append(dateiname)
 for i in range(0, len(list_dateiname)):

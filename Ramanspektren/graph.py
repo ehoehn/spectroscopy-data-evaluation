@@ -59,7 +59,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
                 visible=errory_ausan
                 ),
             mode='lines',
-            name=names_numbers[t],
+            name=names_letters[t],
             line=dict(
                 width='3',
       #          color=colors[t],
