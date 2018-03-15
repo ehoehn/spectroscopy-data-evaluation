@@ -73,7 +73,7 @@ def plotly_zeitlVerlauf(df, dateiname, suffix_for_new_filename, xaxis_title, yax
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('BandsInOne.csv'):
+    if dateiname.startswith('allIndicatorBandsInOne'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=0, sep=';')
@@ -87,4 +87,4 @@ for dateiname in os.listdir():
             df2 = df.apply(lambda x: x / df.ix[19] * 100, axis=1)
             df2['time [s]'] = df['time [s]']
          #   print(df2)
-            df2.to_csv('allIndicatorBandsInOne_normalized.csv', sep=';')
+            df2.to_csv(generate_filename(dateiname, '_normalized.csv'), sep=';')

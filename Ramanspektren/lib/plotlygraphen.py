@@ -1,6 +1,6 @@
 import plotly
 from plotly import graph_objs as go
-from lib.allgemein import generate_filename
+from Ramanspektren.lib.allgemein import generate_filename
 
 
 grenzfarbe = 0.7
@@ -15,6 +15,24 @@ def viridis_plus_rot():
 def viridis_plus_rot_as_list():
     farbe = ['#440154FF', '#481567FF', '#482677FF', '#453781FF', '#404788FF', '#39568CFF', '#33638DFF', '#2D708EFF', '#287D8EFF', '#238A8DFF', '#1F968BFF', '#20A387FF', '#29AF7FFF', '#3CBB75FF', '#55C667FF', '#73D055FF', '#95D840FF', '#B8DE29FF', '#DCE319FF', '#FDE725FF', '#B20A28FF']
     return farbe
+
+
+def jet():
+    farbe = ['#000000', '#ff0000', '#0000ff', '#0ed145', '#ff00ff', '#800080', '#008000', '#9467bd'] #lila
+    return farbe
+
+def lineforms():
+    lineform = ['solid', 'dot', 'dash', '20px', 'dashdot', '20px,3px', '20px,2px,2px', '7px,2px,2px', '1px']
+    return lineform
+
+def letters():
+    letterlist = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    return letterlist
+
+def numbers():
+    numberlist = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    return numberlist
+
 
 
 def plotly_nach_positionen_3dscatter_layout(x_lables, y_lables, z_lables):
@@ -111,6 +129,7 @@ def plotly_zeitlVerlauf_2dscatter_layout(
         height=600,
         showlegend=True,
         legend=dict(x=0.85, y=-1.3),
+
         xaxis=dict(
             title='<b>' + xaxis_title + '</b>',
             titlefont=dict(family='Arial, sans-serif',

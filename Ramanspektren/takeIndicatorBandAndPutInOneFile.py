@@ -70,7 +70,10 @@ for i in range(0, len(list_dateiname)):
 #print(df_a)
 df_a = df_a.transpose()
 #print(df_a)
-df_a.to_csv('allIndicatorBandsInOne.csv', sep=';')
+if list_dateiname[0].split('_').count('primitive') == 1:
+    df_a.to_csv('allIndicatorBandsInOne_primitive_bscorr.csv', sep=';')
+else:
+    df_a.to_csv('allIndicatorBandsInOne.csv', sep=';')
 
 
 #plotly_zeitlVerlauf_normalisiert(all_highest_intensities)

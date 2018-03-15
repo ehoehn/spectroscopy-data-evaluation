@@ -5,11 +5,17 @@ import os
 import plotly
 from plotly import graph_objs as go
 from lib.allgemein import generate_filename
+import Ramanspektren.lib.plotlygraphen
+
 
 suffix_for_new_filename = '_xy.html'
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
+    colors = Ramanspektren.lib.plotlygraphen.jet()
+    lineform = Ramanspektren.lib.plotlygraphen.lineforms()
+    names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
+    names_letters = Ramanspektren.lib.plotlygraphen.letters()
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True
@@ -20,18 +26,19 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     for l in y_values:
         measu = y_values[l].values.tolist()
         nrCol.append(measu)
-#    print(nrCol[0])
+  #  print(nrCol)
 
     names = []
-    for k in y_values:
-        nr = k.split('_')
-        n = nr[5]
-        print(nr)
-        r = n.split('n')
-        names.append(n)
+    # for k in y_values:
+    #     nr = k.split('_')
+    #     n = nr[7]
+    #   #  print(nr)
+    #     r = n.split('n')
+    #     names.append(r)
 
     traces = []
     for t in range(0, len(nrCol)):
+     #   print(t)
         trace = go.Scatter(
             x=x_values,
             y=nrCol[t],
@@ -52,9 +59,12 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
                 visible=errory_ausan
                 ),
             mode='lines',
-            name=names[t],
+            name=names_numbers[t],
             line=dict(
                 width='3',
+      #          color=colors[t],
+                dash=lineform[t]
+              #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
             #    color='rgb(166, 166, 166)'
 
             )
@@ -79,15 +89,19 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
         autosize=True,
         width=600,
         height=430,
+        legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
+                    font=dict(family='Arial, sans-serif',
+                              size=20,
+                              color='#000000')),
         xaxis=dict(
             title='<b>' + xaxis_title + '</b>',
             titlefont=dict(family='Arial bold, sans-serif',
-                           size=20,
+                           size=24,
                            color='#000000'),
             showticklabels=True,
             tickangle=0,
             tickfont=dict(family='Arial, sans-serif',
-                          size=20,
+                          size=24,
                           color='#000000'),
             showgrid=False,
             showline=True,
@@ -106,12 +120,12 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
         yaxis=dict(
             title='<b>' + yaxis_title + '</b>',
             titlefont=dict(family='Arial bold, sans-serif',
-                           size=20,
+                           size=24,
                            color='#000000'),
             showticklabels=True,
             tickangle=0,
             tickfont=dict(family='Arial, sans-serif',
-                          size=20,
+                          size=24,
                           color='#000000'),
             showgrid=False,
             showline=True,
@@ -142,8 +156,8 @@ for dateiname in os.listdir():
     if dateiname.endswith('_normalized.csv'):
         print(dateiname)
         with open(dateiname) as fd:
-            df = pd.read_csv(fd, index_col=0, header=0, sep=';')
-         #   print(df)
+            df = pd.read_csv(fd, index_col=0, header=1, sep=';')
+        #    print(df)
             x = df.iloc[:, 0]
             print(x)
             y = pd.DataFrame(df.iloc[:, 1:])

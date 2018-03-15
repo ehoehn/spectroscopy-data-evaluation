@@ -75,7 +75,7 @@ for dateiname in os.listdir():
             all = times.append(smoothed_intensities)
 
             #   print('_'.join(dateiname.split('_')[0:-1]))
-            all.to_csv(generate_filename('_'.join(dateiname.split('_')[0:-1]) + '.csv', '_window9_order4_smoothed.csv'), sep=';')
+            all.to_csv(generate_filename('_'.join(dateiname.split('_')[0:-1]) + '.csv', '_window9_order1_smoothed.csv'), sep=';')
 
         # plotly_zeitlVerlauf_vergl(pd.DataFrame(intensities['Frame 5']), smoothed_intensities['Frame 5'], times,
         #                           generate_filename(dateiname, '_window_length=9, polyorder=1.html'),
