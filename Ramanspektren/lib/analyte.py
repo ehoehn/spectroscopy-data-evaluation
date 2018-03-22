@@ -11,4 +11,7 @@ def kristallviolett_al_Raja(): #indicator band: 1152 - 1215
     return [1093, 1240]
 
 def malachitegreen(): #indicator band: 1440 - 1520
-    return [1434, 1524]
+    return [1440, 1520]
+
+def rodamine6g(): #indicator band: 1629 - 1674
+    return [1629, 1674]

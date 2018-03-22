@@ -18,10 +18,10 @@ import lib.analyte
 
 
 #suffix_for_new_filename = '_graphIntensityOverTime.csv'
-punkte_baseline = lib.analyte.malachitegreen()
-band_start = 1440
-band_end = 1520
-# 1440 - 1520
+punkte_baseline = lib.analyte.kristallviolett_al_Raja()
+band_start = punkte_baseline[0]
+band_end = punkte_baseline[1]
+
 
 
 import os
@@ -53,7 +53,7 @@ for dateiname in os.listdir():
         all = all.fillna(0)
 
         liste = dateiname.split('_')
-        liste.insert(6, 'pH 3, 10,17 mS cm-1')
+        liste.insert(6, 'deionised water as electrolyte)')
         liste = '_'.join(liste)
 
         all.to_csv(generate_filename(liste, '_w9_o1_s_drawnDown.csv'), sep=';')

@@ -52,8 +52,8 @@ for dateiname in os.listdir():
         all = all.fillna(0)
 
         liste = dateiname.split('_')
-        liste.insert(6, '100%buffer')
+     #   liste.insert(6, '100%buffer')
         liste = '_'.join(liste)
 
-        all.to_csv(generate_filename(liste, '_window9_order1_smoothed_primitive_drawnDown.csv'), sep=';')
+        all.to_csv(generate_filename(liste, '_w9_o1_s_pdD.csv'), sep=';')
 

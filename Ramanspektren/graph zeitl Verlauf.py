@@ -26,7 +26,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     for l in y_values:
         measu = y_values[l].values.tolist()
         nrCol.append(measu)
-  #  print(nrCol)
+    print(nrCol)
 
     names = []
     # for k in y_values:
@@ -144,7 +144,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
     return layout
 
 
-def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=None, suffix_for_new_filename=None, x_range=None, y_range=None, x_dtick=None, y_dtick=None, xaxis_title='', yaxis_title=''):
+def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=None, suffix_for_new_filename=None, x_range=None, y_range=None, x_dtick=None, y_dtick=None, xaxis_title='', yaxis_title='', x_lables=True, y_lables=True, z_lables=True):
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_xy_yFehler_data(x_values, y_values, errorx, errory),
                layout=plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick))
@@ -153,7 +153,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('_normalized.csv'):
+    if dateiname.endswith('_pdD.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
@@ -162,4 +162,4 @@ for dateiname in os.listdir():
             print(x)
             y = pd.DataFrame(df.iloc[:, 1:])
             print(y)
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='norm. intensity [a. u.]')
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='norm. intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
