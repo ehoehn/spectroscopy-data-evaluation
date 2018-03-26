@@ -136,7 +136,7 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
          #   name=names_numbers[t],
             line=dict(
                 width='6',
-       #         color=colors[t],
+                color=colors[t],
           #      dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
             #    color='rgb(166, 166, 166)'
@@ -191,7 +191,7 @@ def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_
         #         tickwidth=1,
         #         tickcolor='#FFFFFF',
 #                tickvals=list(range(1, len(x), 2)),
-                tickvals=list(range(0, len(x))),
+                tickvals=list(range(1, len(x))),
 
                 ticktext=ticktext,
                 tickmode='array',
@@ -258,11 +258,9 @@ def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_
                 showbackground=False,
                 #   backgroundcolor='rgb(230, 230, 230)',
         ),
-       #     aspectratio=dict(x=1.7, y=1, z=1),
-          #  aspectmode='manual',
-            camera = dict(eye=dict(x=-1.7, y=-1.7, z=0.5))
-        )
-    )
+            aspectratio=dict(x=1.7, y=1, z=1),
+            aspectmode='manual',
+            camera = dict(eye=dict(x=-1.7, y=-1.7, z=0.5))))
     return layout
 
 

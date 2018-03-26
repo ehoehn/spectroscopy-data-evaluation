@@ -104,7 +104,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
             name=names_letters[t],
             line=dict(
                 width='3',
-                color='#FF0000',
+           #     color='#FF0000',
                 dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
             #    color='rgb(166, 166, 166)'
@@ -198,7 +198,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('_pdD.csv'):
+    if dateiname.endswith('_normalized.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=0, sep=';')

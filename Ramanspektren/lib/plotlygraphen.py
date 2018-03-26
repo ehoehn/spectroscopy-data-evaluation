@@ -21,8 +21,12 @@ def jet():
     farbe = ['#000000', '#ff0000', '#0000ff', '#0ed145', '#ff00ff', '#800080', '#008000', '#9467bd'] #lila
     return farbe
 
+def br():
+    farbe = ['#000000', '#ff0000', '#000000', '#ff0000','#000000', '#ff0000','#000000', '#ff0000','#000000', '#ff0000','#000000', '#ff0000','#000000', '#ff0000','#000000', '#ff0000','#000000', '#ff0000']
+    return farbe
+
 def lineforms():
-    lineform = ['solid', 'dot', 'dash', '20px', 'dashdot', '20px,3px', '20px,2px,2px', '7px,2px,2px', '1px']
+    lineform = ['solid', 'dot', 'dash', '20px', 'dashdot', '20px,3px', '20px,2px,2px', '7px,2px,2px', '1px', 'solid', 'dot', 'dash', '20px', 'dashdot', '20px,3px', '20px,2px,2px', '7px,2px,2px', '1px']
     return lineform
 
 def letters():
@@ -30,7 +34,7 @@ def letters():
     return letterlist
 
 def numbers():
-    numberlist = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    numberlist = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18']
     return numberlist
 
 

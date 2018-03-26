@@ -32,7 +32,7 @@ def plotly_Spectrum_1Spektrum_2dscatter_data(intensities, framenumber):
 
 def plotly_Spectrum_1Spectrum(intensities, dateiname, suffix_for_new_filename):
     indexes = intensities.index.values.tolist()
-    print(indexes[0])
+  #  print(indexes[0])
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     data, ind = plotly_Spectrum_1Spektrum_2dscatter_data(intensities, 'Intensity [a. u.]')
     layout = plotly_Spectrum_2dscatter_layout(ind, xaxis_title='rel. Wavenumber [cm<sup>-1</sup>]', yaxis_title='Intensity [a. u.]', range_nr=[indexes[0], indexes[-1]], dtick_nr=(indexes[0]-indexes[-1])/15)

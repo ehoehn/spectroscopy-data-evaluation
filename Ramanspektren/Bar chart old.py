@@ -7,10 +7,16 @@ from plotly import graph_objs as go
 from lib.allgemein import generate_filename
 import Ramanspektren.lib.plotlygraphen
 import numpy as np
+import Ramanspektren.lib.auswertung
+import Ramanspektren.lib.analyte
 
 
 
-suffix_for_new_filename = '_waterf.html'
+band_start = 1152
+band_end = 1215
+
+
+suffix_for_new_filename = '_bar.html'
 
 
 def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_values, errorz_values, errorx_ausan = False, errory_ausan = False, errorz_ausan = False):
@@ -49,7 +55,7 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
    # print(x)
 
     y = y_values.values.tolist()
-    # print(y_values)
+    print(y_values)
     # print(y)
     # y = y_values.values.tolist(),
     #y = list(y)
@@ -84,29 +90,28 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
    #  print(len(z))
    # print(z)
 
- #   print(isinstance(x_values[0].values.tolist()[1], str))
+ #   print(x_values[0].values.tolist()[1])
 
-    print()
+
     traces = []
     for t in range(0, len(x)):
- #        print(t)
- # #       print([t]*len(y_values))
- #        print(len(x_values[0].values.tolist()[t])),
- #        print(len([t]*len(y_values)))
+ #       print([t]*len(y_values))
+    #    print(len((x_values[0].values.tolist()[t]))),
+        print(len([t]*len(y_values)))
 # print([t]*len(y_values))
         # print(y_values['index'])
         # print(z_values.iloc[:, t])
 
      #   print(t)
-        trace = go.Scatter3d(
+        trace = go.Bar(
             #type='scatter3d',
-        #    name=x_values[0].values.tolist()[t],
-         #   legendgroup=x_values[0].values.tolist()[t],
-            showlegend=False,
+            name=x_values[0].values.tolist()[t],
+            legendgroup=x_values[0].values.tolist()[t],
+
             x=[t]*len(y_values),
           #  x=x_values[0].values.tolist() * 2 + x_values[0].values.tolist()[0],
-            y=y_values.index,
-            z=z_values.iloc[:, t],
+            y=y_values['relWavenumber [1/cm]'],
+     #       z=z_values.iloc[:, t],
        #     surfaceaxis=0,
             error_x=dict(
                 type='data',
@@ -124,23 +129,23 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
                 color='#000000',
                 visible=errory_ausan
                 ),
-            error_z=dict(
-                type='data',
-                array=errorz_values,
-                #  thickness=1,
-                # width=0,
-                color='#000000',
-                visible=errorz_ausan
-                ),
-            mode='lines',
+            # error_z=dict(
+            #     type='data',
+            #     array=errorz_values,
+            #     #  thickness=1,
+            #     # width=0,
+            #     color='#000000',
+            #     visible=errorz_ausan
+            #     ),
+      #      mode='lines',
          #   name=names_numbers[t],
-            line=dict(
-                width='6',
-       #         color=colors[t],
+    #        line=dict(
+       #         width='6',
+        #        color=colors[t],
           #      dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
             #    color='rgb(166, 166, 166)'
-            )
+     #       )
 
             )
             # marker=dict(
@@ -159,7 +164,7 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
     return traces
 
 
-def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_range, z_range, x_dtick, y_dtick, z_dtick, x_lables, y_lables, z_lables, ticktext, tickvals):
+def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_range, z_range, x_dtick, y_dtick, z_dtick, x_lables, y_lables, z_lables):
     layout = dict(
         autosize=True,
         width=1000,
@@ -190,11 +195,6 @@ def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_
         #         ticklen=5,
         #         tickwidth=1,
         #         tickcolor='#FFFFFF',
-#                tickvals=list(range(1, len(x), 2)),
-                tickvals=list(range(0, len(x))),
-
-                ticktext=ticktext,
-                tickmode='array',
                 range=x_range,
                 dtick=x_dtick,
                 gridcolor='rgb(100, 100, 100)',
@@ -258,18 +258,14 @@ def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_
                 showbackground=False,
                 #   backgroundcolor='rgb(230, 230, 230)',
         ),
-       #     aspectratio=dict(x=1.7, y=1, z=1),
-          #  aspectmode='manual',
-            camera = dict(eye=dict(x=-1.7, y=-1.7, z=0.5))
-        )
-    )
+            camera = dict(eye=dict(x=-1.7, y=-1.7, z=0.5))))
     return layout
 
 
-def plotly_xyz_yFehler(x_values, y_values, z_values, errorx=None, errory=None, errorz=None, dateiname=None, suffix_for_new_filename=None, x_range=None, y_range=None, z_range=None, x_dtick=None, y_dtick=None, z_dtick=None, xaxis_title='', yaxis_title='', zaxis_title='', x_lables=False, y_lables=False, z_lables=False, ticktext=None, tickvals=None):
+def plotly_bar(x_values, y_values, z_values, errorx=None, errory=None, errorz=None, dateiname=None, suffix_for_new_filename=None, x_range=None, y_range=None, z_range=None, x_dtick=None, y_dtick=None, z_dtick=None, xaxis_title='', yaxis_title='', zaxis_title='', x_lables=False, y_lables=False, z_lables=False):
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx, errory, errorz),
-               layout=plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_range, z_range, x_dtick, y_dtick, z_dtick, x_lables, y_lables, z_lables, ticktext, tickvals))
+               layout=plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_range, z_range, x_dtick, y_dtick, z_dtick, x_lables, y_lables, z_lables))
     plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
 
 
@@ -278,20 +274,40 @@ def plotly_xyz_yFehler(x_values, y_values, z_values, errorx=None, errory=None, e
 
 for dateiname in os.listdir():
     if dateiname.endswith('_pdD.csv'):
-        print(dateiname)
+      #  print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=0, sep=';')
-           # print(df)
+          #  print(df)
             df.reset_index(level=0, inplace=True)
-         #   print(df)
+         #  print(df)
             x = pd.DataFrame(df.iloc[0, 1:])
 
-         #   print(x.index) # Zeit
+     #       print(x.index) # Zeit
             y = pd.DataFrame(df.iloc[1:, 0])
        #     print(y) # Wellenlängenverschiebung
             z = pd.DataFrame(df.iloc[1:, 1:])
-        #    print(z) # Intensitäten
-            plotly_xyz_yFehler(x_values=x, y_values=y, z_values=z, x_range=None, y_range=[150,2000], z_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ',
-                               #yaxis_title='rel. wavenumber [cm<sup>-1</sup>]', zaxis_title='intensity [a. u.]',
-                               x_lables=True, y_lables=True, z_lables=True, ticktext=x.values.tolist(), tickvals=[x,y])
+          #  print(z) # Intensitäten
+
+            wn_with_highest_intensity = Ramanspektren.lib.auswertung.compute_wn_with_highest_intensity(z, band_start, band_end)
+         #   print(wn_with_highest_intensity)
+            highest_intensity = pd.DataFrame(Ramanspektren.lib.auswertung.grep_highest_intensity(z, wn_with_highest_intensity))
+            #print(highest_intensity)
+            # df_a = highest_intensity
+            # df_a = df_a.set_index([[list_dateiname[i]]])
+            # df_a = df_a.transpose()
+            # df_a = df_a.set_index([list(range(1, len(df_a.index) + 1))])
+            # df_a = df_a.transpose()
+            # times = times.transpose()
+            # times = times.set_index([list(range(1, len(times.index) + 1))])
+            # times = times.transpose()
+            # df_a = times.append(df_a)
+
+
+            row = highest_intensity.ix[0]
+            print(row)
+
+
+            plotly_bar(x_values=x, y_values=row, z_values=z, x_range=None, y_range=None, z_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ',
+                                #yaxis_title='rel. wavenumber [cm<sup>-1</sup>]', zaxis_title='intensity [a. u.]',
+                                x_lables=True, y_lables=True, z_lables=True)
 
