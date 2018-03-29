@@ -86,7 +86,7 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
 
  #   print(isinstance(x_values[0].values.tolist()[1], str))
 
-    print()
+
     traces = []
     for t in range(0, len(x)):
  #        print(t)
