@@ -53,8 +53,8 @@ for dateiname in os.listdir():
         all = all.fillna(0)
 
         liste = dateiname.split('_')
-        liste.insert(6, 'deionised water as electrolyte)')
+      #  liste.insert(6, 'deionised water as electrolyte)')
         liste = '_'.join(liste)
 
-        all.to_csv(generate_filename(liste, '_w9_o1_s_drawnDown.csv'), sep=';')
+        all.to_csv(generate_filename(liste, '_w9_o1_s_dD.csv'), sep=';')
 

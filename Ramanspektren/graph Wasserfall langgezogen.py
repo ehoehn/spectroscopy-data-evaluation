@@ -275,7 +275,7 @@ def plotly_xyz_yFehler(x_values, y_values, z_values, errorx=None, errory=None, e
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('_pdD.csv'):
+    if dateiname.endswith('_pdD_forGraph.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=0, sep=';')
@@ -286,7 +286,7 @@ for dateiname in os.listdir():
 
          #   print(x.index) # Zeit
             y = pd.DataFrame(df.iloc[1:, 0])
-       #     print(y) # Wellenlängenverschiebung
+            print(y) # Wellenlängenverschiebung
             z = pd.DataFrame(df.iloc[1:, 1:])
         #    print(z) # Intensitäten
             plotly_xyz_yFehler(x_values=x, y_values=y, z_values=z, x_range=None, y_range=[150,2000], z_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ',
