@@ -60,7 +60,7 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
     for i in range(0, len(y)):
         y2.append(np.float64(y[i][0]))
    # print(y2)
-    y = [y2]
+    y = y2
    # print(y)
 
 
@@ -88,7 +88,7 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
 
 
     traces = []
-    for t in range(0, len(x)):
+    for t in range(len(x)-1, 0-1, -1):
  #        print(t)
  # #       print([t]*len(y_values))
  #        print(len(x_values[0].values.tolist()[t])),
@@ -105,7 +105,7 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
             showlegend=False,
             x=[t]*len(y_values),
           #  x=x_values[0].values.tolist() * 2 + x_values[0].values.tolist()[0],
-            y=y_values.index,
+            y=y,
             z=z_values.iloc[:, t],
        #     surfaceaxis=0,
             error_x=dict(
@@ -260,9 +260,8 @@ def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_
         ),
        #     aspectratio=dict(x=1.7, y=1, z=1),
           #  aspectmode='manual',
-            camera = dict(eye=dict(x=-1.7, y=-1.7, z=0.5))
-        )
-    )
+            camera=dict(eye=dict(x=1.7, y=1.7, z=0.5),
+                        center=dict(x=0, y=0, z=-0.3))))
     return layout
 
 
@@ -277,7 +276,7 @@ def plotly_xyz_yFehler(x_values, y_values, z_values, errorx=None, errory=None, e
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('_pdD.csv'):
+    if dateiname.endswith('_pdD_reversed.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=0, sep=';')

@@ -16,6 +16,13 @@ def liste_in_string_umwandeln(input):
         ft.append(k)
     return ft
 
+def add_value_to_listelements(input, value):
+    ft = []
+    for i in input:
+        k = i + value
+        ft.append(k)
+    return ft
+
 def generate_filename(dateiname, suffix_for_new_filename):
     name = dateiname.split('.')
     del name[-1]

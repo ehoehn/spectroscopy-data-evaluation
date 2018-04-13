@@ -59,9 +59,9 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
     #
     for i in range(0, len(y)):
         y2.append(np.float64(y[i][0]))
-   # print(y2)
-    y = [y2]
-   # print(y)
+  #  print(y2)
+    y = y2
+  #  print(y)
 
 
   #  print(y)
@@ -86,7 +86,7 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
 
  #   print(isinstance(x_values[0].values.tolist()[1], str))
 
-    print()
+ #   print()
     traces = []
     for t in range(0, len(x)):
  #        print(t)
@@ -105,7 +105,7 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
             showlegend=False,
             x=[t]*len(y_values),
           #  x=x_values[0].values.tolist() * 2 + x_values[0].values.tolist()[0],
-            y=y_values.index,
+            y=y,
             z=z_values.iloc[:, t],
        #     surfaceaxis=0,
             error_x=dict(
@@ -260,7 +260,8 @@ def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_
         ),
             aspectratio=dict(x=1.7, y=1, z=1),
             aspectmode='manual',
-            camera = dict(eye=dict(x=-1.7, y=-1.7, z=0.5))))
+            camera = dict(eye=dict(x=1.7, y=1.7, z=0.5),
+                          center=dict(x=0, y=0, z=-0.3))))
     return layout
 
 
@@ -275,7 +276,7 @@ def plotly_xyz_yFehler(x_values, y_values, z_values, errorx=None, errory=None, e
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('_pdD_forGraph.csv'):
+    if dateiname.endswith('_pdD_forGraph_reversed.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=0, sep=';')
@@ -286,10 +287,10 @@ for dateiname in os.listdir():
 
          #   print(x.index) # Zeit
             y = pd.DataFrame(df.iloc[1:, 0])
-            print(y) # Wellenlängenverschiebung
+          #  print(y) # Wellenlängenverschiebung
             z = pd.DataFrame(df.iloc[1:, 1:])
         #    print(z) # Intensitäten
-            plotly_xyz_yFehler(x_values=x, y_values=y, z_values=z, x_range=None, y_range=[150,2000], z_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ',
+            plotly_xyz_yFehler(x_values=x, y_values=y, z_values=z, x_range=None, y_range=None, z_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ',
                                #yaxis_title='rel. wavenumber [cm<sup>-1</sup>]', zaxis_title='intensity [a. u.]',
                                x_lables=True, y_lables=True, z_lables=True, ticktext=x.values.tolist(), tickvals=[x,y])
 

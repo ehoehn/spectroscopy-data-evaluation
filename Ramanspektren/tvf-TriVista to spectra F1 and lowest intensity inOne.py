@@ -21,8 +21,8 @@ import pandas as pd
 
 # suffix_for_new_filename = '_graphMapping.html'
 punkte_baseline = analyte.kristallviolett_al_Raja()
-band_start = 1152
-band_end = 1215
+band_start = punkte_baseline[0]
+band_end = punkte_baseline[1]
 
 
 list_dateiname = []
@@ -99,7 +99,8 @@ print(df_a)
 #
 # df_a = df_a.transpose()
 df_a.to_csv('spectra alternating F1 and lowest intensities_w9_o1_s_pdD.csv', sep=';')
-#
+#df_a.to_csv(generate_filename(list_dateiname[i], 'spec_alt_F1_lowest_int_w9_o1_s_pdD.csv'), sep=';')
+
 #
 
 
