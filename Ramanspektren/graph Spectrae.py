@@ -25,11 +25,11 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
 
     # print(x_values)
     # x = x_values.values.tolist()
-    print(x)
+  #  print(x)
     x_values = x
 
     y = y_values.values.tolist()
-    print(y_values)
+ #   print(y_values)
     # print(y)
     # y = y_values.values.tolist(),
     # y = list(y)
@@ -39,9 +39,9 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     #
     for i in range(0, len(y)):
         y2.append(np.float64(y[i][0]))
-    print(y2)
+ #   print(y2)
     nrCol = [y2]
-    print(y)
+#    print(y)
 
     #  print(y)
     # y = y_values.values.tolist(),
@@ -68,9 +68,9 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     for l in y_values:
         measu = y_values[l].values.tolist()
         nrCol.append(measu)
-    print(nrCol)
+ #   print(nrCol)
 
-  #  names = []
+    names = []
     # for k in y_values:
     #     nr = k.split('_')
     #     n = nr[7]
@@ -198,7 +198,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('.csv'):
+    if dateiname.endswith('_pdD.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=0, sep=';')
