@@ -25,11 +25,11 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
 
     # print(x_values)
     # x = x_values.values.tolist()
-    print(x)
+  #  print(x)
     x_values = x
 
     y = y_values.values.tolist()
-    print(y_values)
+   # print(y_values)
     # print(y)
     # y = y_values.values.tolist(),
     # y = list(y)
@@ -39,9 +39,9 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     #
     for i in range(0, len(y)):
         y2.append(np.float64(y[i][0]))
-    print(y2)
+  #  print(y2)
     nrCol = [y2]
-    print(y)
+   # print(y)
 
     #  print(y)
     # y = y_values.values.tolist(),
@@ -68,7 +68,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     for l in y_values:
         measu = y_values[l].values.tolist()
         nrCol.append(measu)
-    print(nrCol)
+#    print(nrCol)
 
   #  names = []
     # for k in y_values:
@@ -77,13 +77,13 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     #   #  print(nr)
     #     r = n.split('n')
     #     names.append(r)
-
     traces = []
+    shiftvalues = [1000, 0]
     for t in range(0, len(nrCol)):
      #   print(t)
         trace = go.Scatter(
             x=x_values,
-            y=nrCol[t],
+            y=Ramanspektren.lib.allgemein.add_value_to_listelements(nrCol[t], shiftvalues[t]),
             error_x=dict(
                 type='data',
                 array=errorx_values,
@@ -165,11 +165,11 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             titlefont=dict(family='Arial bold, sans-serif',
                            size=24,
                            color='#000000'),
-            showticklabels=True,
+          #  showticklabels=True,
             tickangle=0,
             tickfont=dict(family='Arial, sans-serif',
-                          size=24,
-                          color='#000000'),
+                          size=4,
+                          color='#FFFFFF'),
             showgrid=False,
             showline=True,
             linewidth=2,
