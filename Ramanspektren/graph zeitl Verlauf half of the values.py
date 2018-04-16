@@ -8,7 +8,7 @@ from lib.allgemein import generate_filename
 import Ramanspektren.lib.plotlygraphen
 
 
-suffix_for_new_filename = '_xy.html'
+suffix_for_new_filename = '_xy_everyOther.html'
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
@@ -22,19 +22,23 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     if errory_values is not None:
         errory_ausan = True
 
+    print(y_values.columns)
+
     nrCol = []
     for l in y_values:
         measu = y_values[l].values.tolist()
         nrCol.append(measu)
  #   print(nrCol)
 
-    names = []
+    # names = []
     # for k in y_values:
     #     nr = k.split('_')
     #     n = nr[7]
     #   #  print(nr)
     #     r = n.split('n')
     #     names.append(r)
+    # print(names)
+
 
     traces = []
     for t in range(0, len(nrCol)):
@@ -59,7 +63,8 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
                 visible=errory_ausan
                 ),
             mode='lines',
-            name=names_letters[t],
+            name=y_values.columns[t],
+          #  name=names_numbers[t],
             line=dict(
                 width='3',
       #          color=colors[t],
@@ -148,7 +153,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_xy_yFehler_data(x_values, y_values, errorx, errory),
                layout=plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick))
-    plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
 
 
 
@@ -157,9 +162,10 @@ for dateiname in os.listdir():
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
-        #    print(df)
+          #  print(df)
+            df = Ramanspektren.lib.allgemein.leave_every_other_datapoint_except_range(df, 18, 21)
             x = df.iloc[:, 0]
-         #   print(x)
+           # print(x)
             y = pd.DataFrame(df.iloc[:, 1:])
-          #  print(y)
+         #   print(y)
             plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='norm. intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)

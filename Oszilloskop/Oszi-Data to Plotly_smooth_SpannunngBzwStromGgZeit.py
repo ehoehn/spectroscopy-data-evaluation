@@ -20,12 +20,15 @@ suffix_for_new_filename = '_Smooth_SpannunngBzwStromGgZeit.html'
 
 def get_voltage(df):
     nr = df.split('_')
-    nr = nr[3]
-    nr = nr.split('.')
-    nr = nr[0]
+   # print(nr)
+    nr = nr[2]
+    # nr = nr.split('.')
+    # nr = nr[0]
     nr = nr[:-1]
+    # print(nr)
     nr = nr.replace(',', '.')
     voltage = float(nr)
+    # print(voltage)
     return voltage
 
 
@@ -214,8 +217,11 @@ for dateiname in os.listdir():
         with open(dateiname, 'r') as fd:
             try:
                 applyed_voltage = get_voltage(dateiname)
+                print(applyed_voltage)
                 df = pd.read_csv(fd, sep=',', header=0, index_col=0, skiprows=16, names=['time [s]', 'measured voltage [V]', 'leer'])
+                print(df)
                 del df['leer']
+                print(df1)
                 df1 = df.replace('Null', np.nan)
                 df1.dropna(axis=0, how='all', inplace=True)
                 df2 = df1.apply(pd.to_numeric, errors='raise')

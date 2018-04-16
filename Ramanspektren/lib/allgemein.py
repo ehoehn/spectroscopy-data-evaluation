@@ -1,5 +1,6 @@
 #from Cython.Includes.numpy import __init__ as np
 import numpy as np
+import pandas as pd
 
 
 def liste_in_floats_umwandeln(input):
@@ -30,6 +31,32 @@ def generate_filename(dateiname, suffix_for_new_filename):
     nwname = separator.join(name)
     nwfile = nwname + suffix_for_new_filename
     return nwfile
+
+def leave_every_other_datapoint_except_range(df, rangestart, rangeend):
+    df2 = df.iloc[:rangestart]
+    df3 = df.iloc[rangestart:rangeend]
+    df4 = df.iloc[rangeend:]
+    for index, row in df2.iterrows():
+        if index == 1:
+            df_a = pd.DataFrame(row)
+            df_a = df_a.transpose()
+        else:
+            if index % 2 == 0:
+                df_b = row
+                df_a = df_a.append(df_b)
+    df_a = df_a.append(df3)
+    for index, row in df4.iterrows():
+        if index == df4.index[0]:
+            df_c = pd.DataFrame(row)
+            df_c = df_c.transpose()
+        else:
+            if index % 2 == 0:
+                df_b = row
+                df_c = df_c.append(df_b)
+    df_c = df_a.append(df_c)
+    return df_c
+
+
 
 # '_graphPositionen2D.html'
 # '_graphMapping.html'
