@@ -41,9 +41,9 @@ for dateiname in os.listdir():
         times = Ramanspektren.lib.xml_import.get_times(dateiname)
         smoothed_intensities = scipy.signal.savgol_filter(intensities, window_length=9, polyorder=1, axis=0,
                                                           mode='nearest')
-        smoothed_intensities = pd.DataFrame(smoothed_intensities, index=intensities.index,
+        intensities = pd.DataFrame(smoothed_intensities, index=intensities.index,
                                             columns=intensities.columns)
-
+        intensities = intensities.ix[150:2000]
         intensities = intensities.apply(lambda x: x - x.min())
 
         df_intensities = pd.DataFrame(data=intensities.iloc[:, :], index=intensities.index,

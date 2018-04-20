@@ -113,7 +113,7 @@ print(df_a)
 #         df_a = df_a.append(df_b)
 #
 # df_a = df_a.transpose()
-df_a.to_csv('spectra alternating F1 and lowest intensities_w9_o1_s_pdD.csv', sep=';')
+df_a.to_csv('spectra alternating F1 and lowest intensities_w9_o1_s_pdDGraph.csv', sep=';')
 #
 #
 

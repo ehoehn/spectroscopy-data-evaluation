@@ -102,7 +102,8 @@ def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, error
 def plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick):
     layout = go.Layout(
         autosize=True,
-        width=600,
+#        width=600,
+        width=300,
         height=430,
         margin=dict(l=100),
 

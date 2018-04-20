@@ -17,8 +17,8 @@ import pandas as pd
 
 # suffix_for_new_filename = '_graphMapping.html'
 punkte_baseline = analyte.kristallviolett_al_Raja()
-band_start = 1152
-band_end = 1215
+band_start = punkte_baseline[0]
+band_end = punkte_baseline[1]
 
 
 list_dateiname = []

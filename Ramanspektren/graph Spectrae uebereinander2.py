@@ -11,8 +11,10 @@ import numpy as np
 
 suffix_for_new_filename = '_shifted.html'
 
-factor = 7000
-shift = [ factor*3, factor*2, factor*1, 0]
+factor = 4000
+shift = [
+    #factor*4-9500, factor*3-9500,
+    factor*2-6500, factor*1-3500, 0]
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
@@ -116,12 +118,12 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
                 visible=errory_ausan
                 ),
             mode='lines',
-            # name=names_letters[t],
-            name=y_values.columns[t],
+            name=names_letters[t],
+      #      name=y_values.columns[t],
             line=dict(
                 width='3',
            #     color='#FF0000',
-                dash=lineform[t]
+      #          dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
             #    color='rgb(166, 166, 166)'
 
@@ -214,7 +216,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('_w9_o1_s_pdD.csv'):
+    if dateiname.endswith('.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
