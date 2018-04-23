@@ -13,6 +13,13 @@ import scipy.signal
 
 used_resistor = 1000 # in [Ohm]
 
+def generate_filename(dateiname, suffix_for_new_filename):
+    name = dateiname.split('.')
+    del name[-1]
+    separator = "."
+    nwname = separator.join(name)
+    nwfile = nwname + suffix_for_new_filename
+    return nwfile
 
 def get_voltage(dateiname):
     nr = dateiname.split('_')
@@ -67,20 +74,31 @@ def get_voltage_in_chip(df, applyed_voltage):
     df_voltage = pd.DataFrame(predf_voltage).rename(columns={'measured voltage [V] smoothed':'in chip voltage [V]'})
     return df_voltage
 
-list_dateiname = []
+# list_dateiname = []
+# for dateiname in os.listdir():
+#     if dateiname.endswith('.csv') or dateiname.endswith('.CSV'):
+#         print(dateiname)
+#         list_dateiname.append(dateiname)
+# for i in range(0, len(list_dateiname)):
+#     if i == 0:
+#         with open(list_dateiname[i]) as fd:
+#             measured_voltages = import_from_oszi_data(list_dateiname[i])
+#           #  print(measured_voltages)
+
+
 for dateiname in os.listdir():
     if dateiname.endswith('.csv') or dateiname.endswith('.CSV'):
-        print(dateiname)
-        list_dateiname.append(dateiname)
-for i in range(0, len(list_dateiname)):
-    if i == 0:
-        with open(list_dateiname[i]) as fd:
-            measured_voltages = import_from_oszi_data(list_dateiname[i])
-          #  print(measured_voltages)
+        # with open(dateiname) as fd:
+            print(dateiname)
+            measured_voltages = import_from_oszi_data(dateiname)
             measured_voltages['measured voltage [V] smoothed'] = scipy.signal.savgol_filter(measured_voltages, window_length=21, polyorder=1, axis=0, mode='nearest')  # ggf auch polyorder=2 oder 3
             print(measured_voltages)
-            measured_voltages.to_csv('OsziData_allImportantNumbersIn1.csv', sep=';')
+            #measured_voltages.to_csv('OsziData_allImportantNumbersIn1.csv', sep=';')
             current = get_current(measured_voltages, used_resistor)
+            print(current)
+            measured_voltages['current [µA]'] = current['current [µA]']
+            print(measured_voltages)
+            measured_voltages.to_csv(generate_filename(dateiname, '_w21_o1_s.csv'), sep = ';')
             #in_chip_voltage = get_voltage_in_chip(measured_voltages, get_voltage(list_dateiname[i]))
             # df_in_chip_data = in_chip_voltage.copy()
             # df_in_chip_data['current [µA]'] = current['current [µA]']

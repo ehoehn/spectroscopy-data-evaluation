@@ -71,7 +71,6 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
                 dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
             #    color='rgb(166, 166, 166)'
-
             )
             )
             # marker=dict(
@@ -94,6 +93,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
         autosize=True,
         width=600,
         height=430,
+#        margin=dict(l=100),
         legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
                     font=dict(family='Arial, sans-serif',
                               size=20,
