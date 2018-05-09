@@ -17,7 +17,7 @@ s3 = s2 + 4000
 s4 = s3 + 1500
 s5 = s4 + 4000
 s6 = s5 + 1500
-s7 = s6 + 7000
+s7 = s6 + 5000
 s8 = s7 + 1500
 s9 = s8 + 5000
 s10 = s9 + 1500
@@ -244,7 +244,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('and lowest intensities_w9_o1_s_pdD.csv'):
+    if dateiname.endswith('and lowest intensities_w9_o1_s_pdD#.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
@@ -257,4 +257,4 @@ for dateiname in os.listdir():
       #      print(x) # Wellenlängenverschiebung
             y = pd.DataFrame(df.iloc[1:, 1:])
         #    print(y) # Intensitäten
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[150,2000], y_range=[0,48000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='rel. wavenumber [cm<sup>-1</sup>]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[150,2000], y_range=[0,45000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='rel. wavenumber [cm<sup>-1</sup>]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True)

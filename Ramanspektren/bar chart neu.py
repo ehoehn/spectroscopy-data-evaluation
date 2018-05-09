@@ -169,7 +169,7 @@ def plotly_barChart(x_values, y_values, errorx=None, errory=None, dateiname=None
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('_pdD.csv'):
+    if dateiname.endswith('Graph.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')

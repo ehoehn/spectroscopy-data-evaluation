@@ -8,29 +8,30 @@ from lib.allgemein import generate_filename
 import Ramanspektren.lib.plotlygraphen
 import numpy as np
 import Ramanspektren.lib.auswertung
-import lib.analyte
+import Ramanspektren.lib.analyte
 
 
 
-punkte_baseline = lib.analyte.kristallviolett_al_Raja()
-band_start = punkte_baseline[0]
-band_end = punkte_baseline[1]
+band_start = 1152
+band_end = 1215
 
 
 suffix_for_new_filename = '_bar.html'
 
 
 def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
-    colors = Ramanspektren.lib.plotlygraphen.jet()
+    colors = [['#2ca02c', '#9467bd', '#2ca02c', '#9467bd', '#2ca02c', '#9467bd', '#2ca02c', '#9467bd'],['#000000']]
+  #  colors = Ramanspektren.lib.plotlygraphen.br()
     lineform = Ramanspektren.lib.plotlygraphen.lineforms()
     names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
     names_letters = Ramanspektren.lib.plotlygraphen.letters()
+    legend = [['MG', 'CV'], ['after reg.']]
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True
     if errory_values is not None:
         errory_ausan = True
-
+    # print(names_letters[2])
   #  print(isinstance(x_values, object))
   #  print(y_values.ix[0])
    # print(x_values)
@@ -49,13 +50,14 @@ def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, error
     #   #  print(nr)
     #     r = n.split('n')
     #     names.append(r)
-
+    # print(y_values.ix)
+    # print(len(y_values.index))
     traces = []
-    for t in range(0, 1):
-      #  print(t)
+    for t in range(len(y_values.index)):
+        print(t)
         trace = go.Bar(
             x=y_values.columns,
-            y=y_values.ix[0],
+            y=y_values.ix[t],
             # error_x=dict(
             #     type='data',
             #     array=errorx_values,
@@ -69,29 +71,32 @@ def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, error
       #           array=errory_values,
       #         #  thickness=1,
       #          # width=0,
-      #           color='#000000',
+            #color='#000000',
       #           visible=errory_ausan
       #           ),
       #       mode='lines',
-      #       name=names_letters[t],
-      #       line=dict(
-      #           width='3',
-      # #          color=colors[t],
+      #      name=names_letters[t],
+            name=legend,
+
+            # line=dict(
+            # #     width='3',
+            #      color=colors[t],
       #           dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
-            #    color='rgb(166, 166, 166)'
+                #color='rgb(166, 166, 166)'
 
-            )
+           # ),
          #   )
-            # marker=dict(
+            marker=dict(
             #     sizemode='diameter',
             #     sizeref=1,  #relative Größe der Marker
             #     sizemin=20,
             #     size=10,
-            #     color='#000000',
+                color=colors[t],
             #   #  opacity=0.8,
             #     line=dict(color='rgb(166, 166, 166)',
-            #               width=0)))
+            #               width=0))
+                ))
 
         traces.append(trace)
 
@@ -101,14 +106,15 @@ def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, error
 def plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick):
     layout = go.Layout(
         autosize=True,
+#        width=600,
         width=600,
         height=430,
         margin=dict(l=100),
 
         # legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
-        #             font=dict(family='Arial, sans-serif',
-        #                       size=20,
-        #                       color='#000000')),
+                    font=dict(family='Arial, sans-serif',
+                              size=20,
+                              color='#000000'),
         xaxis=dict(
         #     title='<b>' + xaxis_title + '</b>',
         #     titlefont=dict(family='Arial bold, sans-serif',
@@ -170,27 +176,27 @@ def plotly_barChart(x_values, y_values, errorx=None, errory=None, dateiname=None
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('_w9_o1_s_dD.csv'):
+    if dateiname.endswith('Graph.csv'):
         print(dateiname)
         with open(dateiname) as fd:
-            df = pd.read_csv(fd, index_col=0, header=0, sep=';')
+            df = pd.read_csv(fd, index_col=0, header=1, sep=';')
 
-            #print(df)
+       #     print(df)
        #     df.reset_index(level=0, inplace=True)
        #     print(df)
-            x = pd.DataFrame(df.iloc[0, 1:])
-   #         print(x) # Label
+            x = pd.DataFrame(df.columns)
+       #     print(x) # Label
   #         print(x.index) # Zeit
-            y = pd.DataFrame(df.iloc[1:, 0])
-    #        print(y) # Wellenlängenverschiebung
-            z = df.iloc[0:, 0:]
-       #     print(z) # Intensitäten
-            #
-            wn_with_highest_intensity = Ramanspektren.lib.auswertung.compute_wn_with_highest_intensity_labelbased(z, band_start, band_end)
-            print(wn_with_highest_intensity)
-            highest_intensity = pd.DataFrame(Ramanspektren.lib.auswertung.grep_highest_intensity(z, wn_with_highest_intensity))
-            print(highest_intensity)
+            y = pd.DataFrame(df.iloc[0:, 0:])
+      #      print(y) # Wellenlängenverschiebung
+            # z = df.iloc[1:, 0:]
+            # print(z) # Intensitäten
 
-            highest_intensity.to_csv(generate_filename(dateiname, '_numbers_for_barchart.csv'), sep=';')
+            # wn_with_highest_intensity = Ramanspektren.lib.auswertung.compute_wn_with_highest_intensity_labelbased(z, band_start,
+            #                                                                                            band_end)
+            # #   print(wn_with_highest_intensity)
+            # highest_intensity = pd.DataFrame(
+            #     Ramanspektren.lib.auswertung.grep_highest_intensity(z, wn_with_highest_intensity))
+       #     print(highest_intensity)
 
-            # plotly_barChart(x_values=x, y_values=highest_intensity, x_range=None, y_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
+            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
