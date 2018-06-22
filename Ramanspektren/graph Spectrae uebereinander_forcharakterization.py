@@ -12,41 +12,14 @@ import numpy as np
 suffix_for_new_filename = '_shifted.html'
 
 s1 = 0
-s2 = s1 + 1500
-s3 = s2 + 4000
-s4 = s3 + 1500
-s5 = s4 + 4000
-s6 = s5 + 1500
-s7 = s6 + 5000
-s8 = s7 + 1500
-s9 = s8 + 5000
-s10 = s9 + 1500
-s11 = s10 + 4000
-s12 = s11 + 1500
-s13 = s12 + 3500
-s14 = s13 + 1500
-s15 = s14 + 4500
-s16 = s15 + 1500
+s2 = s1 + 4500
+s3 = s2 + 8000
 
-shift = [s16, s15, s14, s13, s12, s11, s10, s9, s8, s7, s6, s5, s4, s3, s2, s1]
-# print(len (shift))
-
-# factor = 5000
-# shift = [
-#     factor * 15 - 1000, factor * 14 - 0,
-#     factor * 13 - 1000, factor * 12 - 0,
-#     factor * 11 - 1000, factor * 10 - 0,
-#     factor * 9 - 1000, factor * 8 - 0,
-#     factor * 7 - 1000, factor * 6 - 0,
-#     factor * 5 - 1000, factor * 4 - 0,
-#     factor * 3 - 1000, factor * 2 - 0,
-#     factor * 1 - 1000, factor * 0 - 0]
+shift = [s3, s2, s1]
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
-    colors = ['#2ca02c', '#000000', '#9467bd', '#000000', '#2ca02c', '#000000', '#9467bd', '#000000',
-              '#2ca02c', '#000000', '#9467bd', '#000000', '#2ca02c', '#000000', '#9467bd', '#000000']
-
+    colors = Ramanspektren.lib.plotlygraphen.jet()
     lineform = Ramanspektren.lib.plotlygraphen.lineforms()
     names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
     names_letters = Ramanspektren.lib.plotlygraphen.letters()
@@ -63,8 +36,14 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
 
     y = y_values.values.tolist()
     for h in range(len(y_values.columns)):
-        # print(h)
-        y_values[y_values.columns[h]] = y_values[y_values.columns[h]] + shift[h]
+        print(h)
+        if h == 0:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+        if h == 1:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*10 + shift[h]
+        if h == 2:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*50 + shift[h]
+
     # print(y[0])
     # print(y)
     # y = y_values.values.tolist(),
@@ -146,13 +125,13 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
                 visible=errory_ausan
                 ),
             mode='lines',
-            name=y_values.columns[t],
+            name=names_letters[t],
       #      name=y_values.columns[t],
             line=dict(
                 width='3',
-                color=colors[t],
-                #      dash=lineform[t]
-                #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
+           #     color='#FF0000',
+      #          dash=lineform[t]
+              #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
             #    color='rgb(166, 166, 166)'
 
             )
@@ -170,10 +149,10 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
         traces.append(trace)
     traces.append(go.Scatter(
         x=[250, 250],
-        y=[42900, 44900],
+        y=[18000, 20000],
         error_x=dict(
             type='data',
-            array=[0,0],
+            array=[0, 0],
             thickness=2,
             width=5,
             color='#000000',
@@ -189,7 +168,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
         name=' ',
         line=dict(
             width='2',
-            color='#000000',)))
+            color='#000000', )))
     return traces
 
 
@@ -197,7 +176,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
     layout = go.Layout(
         autosize=True,
         width=600,
-        height=760,
+        height=430,
         margin=dict(l=100),
         legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
                     font=dict(family='Arial, sans-serif',
@@ -265,7 +244,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('and lowest intensities_w9_o1_s_pdD#.csv'):
+    if dateiname.endswith('.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
@@ -278,4 +257,4 @@ for dateiname in os.listdir():
       #      print(x) # Wellenlängenverschiebung
             y = pd.DataFrame(df.iloc[1:, 1:])
         #    print(y) # Intensitäten
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[150,2000], y_range=[0,45000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='rel. wavenumber [cm<sup>-1</sup>]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[150,2000], y_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='rel. wavenumber [cm<sup>-1</sup>]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True)

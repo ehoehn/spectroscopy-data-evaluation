@@ -43,11 +43,11 @@ for dateiname in os.listdir():
         smoothed_intensities = scipy.signal.savgol_filter(intensities, window_length=9, polyorder=1, axis=0, mode='nearest')
         smoothed_intensities = pd.DataFrame(smoothed_intensities, index=intensities.index, columns=intensities.columns)
 
-        intensities = intensities.apply(lambda x: x - x.min())
+        smoothed_intensities = smoothed_intensities.apply(lambda x: x - x.min())
 
-        df_intensities = pd.DataFrame(data=intensities.iloc[:, :], index=intensities.index, columns=[intensities.columns],
+        df_intensities = pd.DataFrame(data=smoothed_intensities.iloc[:, :], index=intensities.index, columns=[intensities.columns],
                                    copy=True)
-        df_intensities.iloc[:] = intensities.iloc[:]
+        df_intensities.iloc[:] = smoothed_intensities.iloc[:]
         all = times.append(df_intensities)
         all = all.fillna(0)
 

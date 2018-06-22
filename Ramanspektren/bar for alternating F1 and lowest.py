@@ -135,7 +135,7 @@ def plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, 
         #     ticklen=5,
         #     tickwidth=1,
         #     tickcolor='#FFFFFF',
-        #     range=x_range,
+            range=x_range,
         #     #   range=[0, 2.5],
         #     dtick=x_dtick
            ),
@@ -159,7 +159,7 @@ def plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, 
         #     ticklen=5,
         #     tickwidth=1,
         #     tickcolor='#FFFFFF',
-        #     range=y_range,
+            range=y_range,
         #   #  range=[0, 105],
         #     dtick=y_dtick
         )
@@ -199,4 +199,4 @@ for dateiname in os.listdir():
             #     Ramanspektren.lib.auswertung.grep_highest_intensity(z, wn_with_highest_intensity))
        #     print(highest_intensity)
 
-            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
+            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=[0,3000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)

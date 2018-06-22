@@ -11,10 +11,13 @@ import numpy as np
 
 suffix_for_new_filename = '_shifted.html'
 
-factor = 4000
-shift = [
-    #factor*4-9500, factor*3-9500,
-    factor*2-6500, factor*1-3500, 0]
+s1 = 0
+s2 = s1 + 1500
+s3 = s2 + 1500
+s4 = s3 + 3000
+s5 = s4 + 4000
+
+shift = [s5, s4, s3, s2, s1]
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
@@ -35,8 +38,18 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
 
     y = y_values.values.tolist()
     for h in range(len(y_values.columns)):
-        # print(h)
-        y_values[y_values.columns[h]] = y_values[y_values.columns[h]] + shift[h]
+        print(h)
+        if h == 0:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+        if h == 1:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+        if h == 2:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*20 + shift[h]
+        if h == 3:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*20 + shift[h]
+        if h == 4:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+
     # print(y[0])
     # print(y)
     # y = y_values.values.tolist(),
@@ -118,7 +131,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
                 visible=errory_ausan
                 ),
             mode='lines',
-            name=names_letters[t],
+            name=y_values.columns[t],
       #      name=y_values.columns[t],
             line=dict(
                 width='3',
@@ -140,7 +153,28 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
             #               width=0)))
 
         traces.append(trace)
-
+    traces.append(go.Scatter(
+        x=[250, 250],
+        y=[11000, 12000],
+        error_x=dict(
+            type='data',
+            array=[0, 0],
+            thickness=2,
+            width=5,
+            color='#000000',
+            visible=False),
+        error_y=dict(
+            type='data',
+            array=[0, 0],
+            thickness=2,
+            width=5,
+            color='#000000',
+            visible=True),
+        mode='lines',
+        name=' ',
+        line=dict(
+            width='2',
+            color='#000000', )))
     return traces
 
 
