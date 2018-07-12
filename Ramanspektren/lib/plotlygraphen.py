@@ -37,6 +37,10 @@ def numbers():
     numberlist = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18']
     return numberlist
 
+def romannumbers():
+    letterlist = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV']
+    return letterlist
+
 
 
 def plotly_nach_positionen_3dscatter_layout(x_lables, y_lables, z_lables):

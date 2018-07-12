@@ -12,10 +12,12 @@ import numpy as np
 suffix_for_new_filename = '_shifted.html'
 
 s1 = 0
-s2 = s1 + 4500
-s3 = s2 + 8000
+s2 = s1 + 2000
+s3 = s2 + 2500
+s4 = s3 + 5000
+s5 = s4 + 4000
 
-shift = [s3, s2, s1]
+shift = [s4, s3, s2, s1]
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
@@ -23,8 +25,6 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     lineform = Ramanspektren.lib.plotlygraphen.lineforms()
     names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
     names_letters = Ramanspektren.lib.plotlygraphen.letters()
-    names_romannumbers = Ramanspektren.lib.plotlygraphen.romannumbers()
-
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True
@@ -42,9 +42,13 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
         if h == 0:
             y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
         if h == 1:
-            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*10 + shift[h]
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
         if h == 2:
-            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*50 + shift[h]
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+        if h == 3:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+        if h == 4:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
 
     # print(y[0])
     # print(y)
@@ -127,7 +131,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
                 visible=errory_ausan
                 ),
             mode='lines',
-            name=names_romannumbers[t],
+            name=y_values.columns[t],
       #      name=y_values.columns[t],
             line=dict(
                 width='3',
@@ -151,7 +155,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
         traces.append(trace)
     traces.append(go.Scatter(
         x=[250, 250],
-        y=[18000, 20000],
+        y=[13000, 14000],
         error_x=dict(
             type='data',
             array=[0, 0],
@@ -180,12 +184,8 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
         width=600,
         height=430,
         margin=dict(l=100),
-        # legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
-        #             font=dict(family='Arial, sans-serif',
-        #                       size=20,
-        #                       color='#000000')),
-        legend=dict(x=1, y=1,  # legend=dict(x=0.85, y=1,
-                    font=dict(family='Times New Roman',
+        legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
+                    font=dict(family='Arial, sans-serif',
                               size=20,
                               color='#000000')),
         xaxis=dict(

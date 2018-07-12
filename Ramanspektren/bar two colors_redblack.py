@@ -24,6 +24,7 @@ def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, error
     lineform = Ramanspektren.lib.plotlygraphen.lineforms()
     names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
     names_letters = Ramanspektren.lib.plotlygraphen.letters()
+    names_words = ['before reg.', 'after reg.']
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True
@@ -73,7 +74,7 @@ def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, error
       #           visible=errory_ausan
       #           ),
       #       mode='lines',
-            name=names_letters[t],
+            name=names_words[t],
             # line=dict(
             # #     width='3',
             #      color=colors[t],
@@ -102,15 +103,15 @@ def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, error
 def plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick):
     layout = go.Layout(
         autosize=True,
-#        width=600,
-        width=300,
+        width=600,
+#        width=300,
         height=430,
         margin=dict(l=100),
 
-        # legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
+        legend=dict(x=0.55, y=1.2,    # legend=dict(x=1, y=1,   # legend=dict(x=0.85, y=1,
                     font=dict(family='Arial, sans-serif',
                               size=20,
-                              color='#000000'),
+                              color='#000000')),
         xaxis=dict(
         #     title='<b>' + xaxis_title + '</b>',
         #     titlefont=dict(family='Arial bold, sans-serif',

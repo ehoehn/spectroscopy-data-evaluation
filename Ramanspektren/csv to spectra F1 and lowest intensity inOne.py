@@ -29,7 +29,7 @@ band_end = punkte_baseline[1]
 
 list_dateiname = []
 for dateiname in os.listdir():
-    if dateiname.endswith('_dD.csv') or dateiname.endswith('_dD.CSV'):
+    if dateiname.endswith('_pdD.csv') or dateiname.endswith('_dD.CSV'):
         print(dateiname)
         list_dateiname.append(dateiname)
 for i in range(0, len(list_dateiname)):
