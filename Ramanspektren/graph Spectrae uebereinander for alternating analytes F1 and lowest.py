@@ -11,7 +11,7 @@ import numpy as np
 
 suffix_for_new_filename = '_shifted.html'
 
-s1 = 0
+s1 = 200
 s2 = s1 + 1500
 s3 = s2 + 4000
 s4 = s3 + 1500
