@@ -15,8 +15,14 @@ def compute_wn_with_highest_intensity_labelbased(df, band_start, band_end):
         if re.match(str(band_start) + '\.[0-9]+', str(i)):
     #        print(i)
             break
+        elif re.match(str(band_start+1) + '\.[0-9]+', str(i)):
+    #        print(i)
+            break
     for j in ind:
         if re.match(str(band_end) + '\.[0-9]+', str(j)):
+     #       print(j)
+            break
+        elif re.match(str(band_end+1) + '\.[0-9]+', str(j)):
      #       print(j)
             break
     interval = df.loc[i:j]

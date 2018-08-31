@@ -42,6 +42,7 @@ for dateiname in os.listdir():
 
         smoothed_intensities = scipy.signal.savgol_filter(intensities, window_length=9, polyorder=1, axis=0, mode='nearest')
         smoothed_intensities = pd.DataFrame(smoothed_intensities, index=intensities.index, columns=intensities.columns)
+        smoothed_intensities = smoothed_intensities.ix[150:2000]
 
         smoothed_intensities = smoothed_intensities.apply(lambda x: x - x.min())
 

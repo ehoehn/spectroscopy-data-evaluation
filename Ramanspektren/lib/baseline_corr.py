@@ -17,8 +17,12 @@ def get_spectrum_values(df,punkte_baseline):
     ind = df.index.values.tolist()
     ks = []
     for i in range(0, len(punkte_baseline)):
+       # print(punkte_baseline[i])
         for k in ind:
             if re.match(str(punkte_baseline[i]) + '\.[0-9]+', str(k)):
+                ks.append(k)
+                break
+            elif re.match(str(punkte_baseline[i] + 1) + '\.[0-9]+', str(k)):
                 ks.append(k)
                 break
     return ks
