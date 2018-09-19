@@ -32,10 +32,12 @@ def generate_filename(dateiname, suffix_for_new_filename):
     nwfile = nwname + suffix_for_new_filename
     return nwfile
 
-def leave_every_other_datapoint_except_range(df, rangestart, rangeend):
+
+def innerFunktionOf_leave_every_other_datapoint_except_range(df, rangestart, rangeend):
     df2 = df.iloc[:rangestart]
     df3 = df.iloc[rangestart:rangeend]
     df4 = df.iloc[rangeend:]
+  #  print(df2)
     for index, row in df2.iterrows():
         if index == 1:
             df_a = pd.DataFrame(row)
@@ -54,6 +56,15 @@ def leave_every_other_datapoint_except_range(df, rangestart, rangeend):
                 df_b = row
                 df_c = df_c.append(df_b)
     df_c = df_a.append(df_c)
+    return df_c
+
+
+def leave_every_other_datapoint_except_range(df, rangestart, rangeend):
+    try:
+        df_c = innerFunktionOf_leave_every_other_datapoint_except_range(df, rangestart, rangeend)
+    except:
+        df = df.set_index([list(range(1, len(df.index) + 1))])
+        df_c = innerFunktionOf_leave_every_other_datapoint_except_range(df, rangestart, rangeend)
     return df_c
 
 
