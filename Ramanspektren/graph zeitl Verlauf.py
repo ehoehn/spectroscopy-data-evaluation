@@ -90,6 +90,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
         autosize=True,
         width=600,
         height=430,
+        margin=dict(l=100),
         legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
                     font=dict(family='Arial, sans-serif',
                               size=20,
@@ -155,7 +156,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('_normalized.csv'):
+    if dateiname.endswith('.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
@@ -164,4 +165,4 @@ for dateiname in os.listdir():
          #   print(x)
             y = pd.DataFrame(df.iloc[:, 1:])
           #  print(y)
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, 745], y_range=[0,150], x_dtick=100, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='norm. intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, 745], y_range=None, x_dtick=100, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='norm. intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
