@@ -61,10 +61,11 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
             mode='lines',
             # name=names_numbers[t],
             name=y_values.columns[t],
+            connectgaps=True,
             line=dict(
                 width='3',
       #          color=colors[t],
-             #   dash=lineform[t]
+            #    dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
             #    color='rgb(166, 166, 166)'
 
@@ -88,12 +89,10 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
 def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick):
     layout = go.Layout(
         autosize=True,
-        width=650,
-        # width=600,
+        width=600,
         height=430,
         margin=dict(l=100),
-        # legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
-        legend=dict(x=0.65, y=1,  # legend=dict(x=0.85, y=1,
+        legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
                     font=dict(family='Arial, sans-serif',
                               size=20,
                               color='#000000')),
@@ -112,7 +111,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             linewidth=2,
             zeroline=False,
             # autotick=True,
-            autotick=False,
+            autotick=True,
             ticks='outside',
             tick0=0,
             ticklen=5,
@@ -120,7 +119,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             tickcolor='#FFFFFF',
             range=x_range,
             #   range=[0, 2.5],
-            dtick=x_dtick
+            dtick=x_dtick,
             ),
         yaxis=dict(
             title='<b>' + yaxis_title + '</b>',
@@ -162,9 +161,13 @@ for dateiname in os.listdir():
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
-        #    print(df)
+            # print(df)
             x = df.iloc[:, 0]
-         #   print(x)
-            y = pd.DataFrame(df.iloc[:, 1:])
-          #  print(y)
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, 745], y_range=None, x_dtick=100, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='norm. intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
+            # print(x)
+            # print(x.iloc[-1])
+            y = pd.DataFrame(df.iloc[:400, 1:])
+            print(y)
+            # print(y.iloc[:, 0].max())
+
+        #  print(y)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, 200],  dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
