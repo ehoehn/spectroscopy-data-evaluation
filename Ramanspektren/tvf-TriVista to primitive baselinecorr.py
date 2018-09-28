@@ -18,9 +18,9 @@ import lib.analyte
 
 
 #suffix_for_new_filename = '_graphIntensityOverTime.csv'
-punkte_baseline = lib.analyte.kristallviolett_al_Raja()
-band_start = punkte_baseline[0]
-band_end = punkte_baseline[1]
+# punkte_baseline = lib.analyte.kristallviolett_al_Raja()
+# band_start = punkte_baseline[0]
+# band_end = punkte_baseline[1]
 
 
 import os
@@ -42,7 +42,7 @@ for dateiname in os.listdir():
 
         smoothed_intensities = scipy.signal.savgol_filter(intensities, window_length=9, polyorder=1, axis=0, mode='nearest')
         smoothed_intensities = pd.DataFrame(smoothed_intensities, index=intensities.index, columns=intensities.columns)
-        smoothed_intensities = smoothed_intensities.ix[150:2000]
+      #  smoothed_intensities = smoothed_intensities.ix[150:2000]
 
         smoothed_intensities = smoothed_intensities.apply(lambda x: x - x.min())
 
