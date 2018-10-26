@@ -15,7 +15,7 @@ import pandas as pd
 
 
 # suffix_for_new_filename = '_graphMapping.html'
-punkte_baseline = lib.analyte.kristallviolett_al_Raja()
+punkte_baseline = lib.analyte.thiram()
 band_start = punkte_baseline[0]
 band_end = punkte_baseline[1]
 

@@ -21,3 +21,21 @@ def rhodamine6g(): #indicator band: 583 - 632
 
 def trypanblue(): #indicator band: 1546 - 1637
     return [1546, 1637]
+
+def thiram(): #indicator band: 1338, 1440
+    return [1338, 1440]
+
+def benzene14dithiol(): #indicator band: 1017, 1111
+    return [1017, 1111]
+
+def brilliantblau(): #indicator band: 1545, 1682
+    return [1545, 1682]
+
+def vier_pyridinecarbonitrile(): #indicator band: 779, 913
+    return [779, 913]
+
+def vier_mercaptobenzoesaeure(): #indicator band: 1040, 1119
+    return [1040, 1119]
+
+def viervierstrich_dipyridyl(): #indicator band: 979, 1061
+    return [979, 1061]
