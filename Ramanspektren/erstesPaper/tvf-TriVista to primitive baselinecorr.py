@@ -18,10 +18,9 @@ import lib.analyte
 
 
 #suffix_for_new_filename = '_graphIntensityOverTime.csv'
-punkte_baseline = lib.analyte.vier_mercaptobenzoesaeure()
-band_start = punkte_baseline[0]+1
-band_end = punkte_baseline[1]
-
+# punkte_baseline = lib.analyte.kristallviolett_al_Raja()
+# band_start = punkte_baseline[0]
+# band_end = punkte_baseline[1]
 
 
 import os
@@ -43,18 +42,19 @@ for dateiname in os.listdir():
 
         smoothed_intensities = scipy.signal.savgol_filter(intensities, window_length=9, polyorder=1, axis=0, mode='nearest')
         smoothed_intensities = pd.DataFrame(smoothed_intensities, index=intensities.index, columns=intensities.columns)
+      #  smoothed_intensities = smoothed_intensities.ix[150:2000]
 
-        intensities = Ramanspektren.lib.baseline_corr.baselinecorrection(intensities, punkte_baseline)
+        smoothed_intensities = smoothed_intensities.apply(lambda x: x - x.min())
 
-        df_intensities = pd.DataFrame(data=intensities.iloc[:, :], index=intensities.index, columns=[intensities.columns],
+        df_intensities = pd.DataFrame(data=smoothed_intensities.iloc[:, :], index=intensities.index, columns=[intensities.columns],
                                    copy=True)
-        df_intensities.iloc[:] = intensities.iloc[:]
+        df_intensities.iloc[:] = smoothed_intensities.iloc[:]
         all = times.append(df_intensities)
         all = all.fillna(0)
 
         liste = dateiname.split('_')
-      #  liste.insert(6, 'deionised water as electrolyte)')
+     #   liste.insert(6, '100%buffer')
         liste = '_'.join(liste)
 
-        all.to_csv(generate_filename(liste, '_w9_o1_s_dD.csv'), sep=';')
+        all.to_csv(generate_filename(liste, '_w9_o1_s_pdD.csv'), sep=';')
 

@@ -35,7 +35,7 @@ def vier_pyridinecarbonitrile(): #indicator band: 779, 913
     return [779, 913]
 
 def vier_mercaptobenzoesaeure(): #indicator band: 1040, 1119
-    return [1030, 1119]
+    return [1040, 1119]
 
 def viervierstrich_dipyridyl(): #indicator band: 979, 1061
     return [979, 1061]
