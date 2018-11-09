@@ -35,7 +35,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
             sizeref=1,  #relative Größe der Marker
             sizemin=20,
             size=10,
-            color='#000000',
+      #      color='#000000',
           #  opacity=0.8,
             line=dict(color='rgb(166, 166, 166)',
                       width=0)))
@@ -46,8 +46,10 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
 def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick):
     layout = go.Layout(
         autosize=True,
+        separators='. ',
         width=650,
         height=430,
+        margin=dict(l=100),
         xaxis=dict(
             title='<b>' + xaxis_title + '</b>',
             titlefont=dict(family='Arial bold, sans-serif',
@@ -82,7 +84,8 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             tickfont=dict(family='Arial, sans-serif',
                           size=20,
                           color='#000000'),
-            exponentformat=None,
+            # separatethousands=' ',
+            exponentformat='none',
             showgrid=False,
             showline=True,
             linewidth=2,
@@ -95,8 +98,8 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             tickcolor='#FFFFFF',
             range=y_range,
             # range=[0, 105],
-            dtick=y_dtick
-        ))
+            dtick=y_dtick,
+            ))
     return layout
 
 
