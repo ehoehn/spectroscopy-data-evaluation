@@ -85,7 +85,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
                           size=20,
                           color='#000000'),
             # separatethousands=' ',
-            exponentformat='none',
+       #     exponentformat='power',
             showgrid=False,
             showline=True,
             linewidth=2,

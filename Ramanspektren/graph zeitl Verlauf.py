@@ -12,10 +12,10 @@ suffix_for_new_filename = '_xy.html'
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
-    colors = lib.plotlygraphen.jet()
-    lineform = lib.plotlygraphen.lineforms()
-    names_numbers = lib.plotlygraphen.numbers()
-    names_letters = lib.plotlygraphen.letters()
+  #  colors = lib.plotlygraphen.jet()
+  #   lineform = lib.plotlygraphen.lineforms()
+  #   names_numbers = lib.plotlygraphen.numbers()
+  #   names_letters = lib.plotlygraphen.letters()
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True

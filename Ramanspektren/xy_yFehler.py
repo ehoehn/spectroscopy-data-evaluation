@@ -21,6 +21,7 @@ for dateiname in os.listdir():
             error_y = df['Stabw'].values.tolist()
 
             plotly_xy_yFehler(x_values=x, y_values=y, errory=error_y, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename,
-                              x_range=[0, max(x)+max(x)/10], y_range=[0, max(y + error_y)+max(y + error_y)/10], x_dtick=10, y_dtick=5000,
-                              xaxis_title='conc. HNO<sub>3</sub> [%]', yaxis_title='intensity [a. u.]')
+                              x_range=[0, max(x)+max(x)/10], y_range=[0, max(y + error_y)+max(y + error_y)/10], x_dtick=15, y_dtick=5000,
+                              xaxis_title='time [s]', yaxis_title='intensity [a. u.]')
+                             # xaxis_title='conc. HNO<sub>3</sub> [%]', yaxis_title='intensity [a. u.]')
 
