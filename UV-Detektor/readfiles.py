@@ -35,7 +35,7 @@ def split_the_merged_stuff(intensity):
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('.log'):
+    if dateiname.endswith('.log') and dateiname.startswith('output_2019'):
         print(dateiname)
         with open(dateiname) as fd:
             timestamp, intensity = separate_the_two_columns(fd)

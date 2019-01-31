@@ -5,10 +5,10 @@ import os
 import plotly
 from plotly import graph_objs as go
 from lib.allgemein import generate_filename
-import Ramanspektren.lib.plotlygraphen
+import lib.plotlygraphen
 import numpy as np
-import Ramanspektren.lib.auswertung
-import Ramanspektren.lib.analyte
+import lib.auswertung
+import lib.analyte
 
 
 
@@ -20,10 +20,10 @@ suffix_for_new_filename = '_bar.html'
 
 
 def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
-    colors = Ramanspektren.lib.plotlygraphen.br()
-    lineform = Ramanspektren.lib.plotlygraphen.lineforms()
-    names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
-    names_letters = Ramanspektren.lib.plotlygraphen.letters()
+    colors = lib.plotlygraphen.br()
+    lineform = lib.plotlygraphen.lineforms()
+    names_numbers = lib.plotlygraphen.numbers()
+    names_letters = lib.plotlygraphen.letters()
     names_words = ['before reg.', 'after reg.']
     print(plotly.__version__)
     if errorx_values is not None:
@@ -124,8 +124,8 @@ def plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, 
                           size=24,
                           color='#000000'),
         #     showgrid=False,
-        #     showline=True,
-        #     linewidth=2,
+            showline=True,
+            linewidth=2,
         #     zeroline=False,
         #     autotick=True,
         #     ticks='outside',
@@ -148,8 +148,8 @@ def plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, 
                           size=24,
                           color='#000000'),
         #     showgrid=False,
-        #     showline=True,
-        #     linewidth=2,
+            showline=True,
+            linewidth=2,
         #     zeroline=False,
         #     autotick=True,
         #     ticks='outside',

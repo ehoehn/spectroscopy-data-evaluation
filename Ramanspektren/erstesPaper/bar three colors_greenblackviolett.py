@@ -5,10 +5,10 @@ import os
 import plotly
 from plotly import graph_objs as go
 from lib.allgemein import generate_filename
-import Ramanspektren.lib.plotlygraphen
+import lib.plotlygraphen
 import numpy as np
-import Ramanspektren.lib.auswertung
-import Ramanspektren.lib.analyte
+import lib.auswertung
+import lib.analyte
 
 
 
@@ -22,9 +22,9 @@ suffix_for_new_filename = '_bar.html'
 def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
     colors = [['#2ca02c', '#9467bd', '#2ca02c', '#9467bd', '#2ca02c', '#9467bd', '#2ca02c', '#9467bd'],['#000000']]
   #  colors = Ramanspektren.lib.plotlygraphen.br()
-    lineform = Ramanspektren.lib.plotlygraphen.lineforms()
-    names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
-    names_letters = Ramanspektren.lib.plotlygraphen.letters()
+    lineform = lib.plotlygraphen.lineforms()
+    names_numbers = lib.plotlygraphen.numbers()
+    names_letters = lib.plotlygraphen.letters()
     legend = [['MG', 'CV'], ['after reg.']]
     print(plotly.__version__)
     if errorx_values is not None:
@@ -126,8 +126,8 @@ def plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, 
                           size=24,
                           color='#000000'),
         #     showgrid=False,
-        #     showline=True,
-        #     linewidth=2,
+            showline=True,
+            linewidth=2,
         #     zeroline=False,
         #     autotick=True,
         #     ticks='outside',
@@ -150,8 +150,8 @@ def plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, 
                           size=24,
                           color='#000000'),
         #     showgrid=False,
-        #     showline=True,
-        #     linewidth=2,
+            showline=True,
+            linewidth=2,
         #     zeroline=False,
         #     autotick=True,
         #     ticks='outside',
@@ -199,4 +199,4 @@ for dateiname in os.listdir():
             #     Ramanspektren.lib.auswertung.grep_highest_intensity(z, wn_with_highest_intensity))
        #     print(highest_intensity)
 
-            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=[0,3000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
+            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=[0,2000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
