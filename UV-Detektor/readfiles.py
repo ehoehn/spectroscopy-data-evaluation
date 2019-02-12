@@ -1,7 +1,16 @@
 import os
+import numpy as np
 import pandas as pd
 from datetime import time, timedelta, datetime
+#import datetime, time
 
+
+def liste_in_string_umwandeln(input):
+    ft = []
+    for i in input:
+        k = np.str(i)
+        ft.append(k)
+    return ft
 
 
 def separate_the_two_columns(fd):
@@ -35,12 +44,12 @@ def split_the_merged_stuff(intensity):
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('.log') and dateiname.startswith('output_2019'):
+    if dateiname.endswith('.log') and dateiname.startswith('output_2019-02-04_16-04-53Einspritzen'):
         print(dateiname)
         with open(dateiname) as fd:
             timestamp, intensity = separate_the_two_columns(fd)
 
-            subs, intensity = split_the_merged_stuff(intensity)
+          #  subs, intensity = split_the_merged_stuff(intensity)
 
 
 
@@ -90,9 +99,10 @@ for dateiname in os.listdir():
             timee = [datetime.strptime(newtimestamp[0], '%H:%M:%S.%f') - datetime.strptime(newtimestamp[0],'%H:%M:%S.%f')]
             for n in range(len(newtimestamp)-1):
                 timeelapsed = datetime.strptime(newtimestamp[n+1], '%H:%M:%S.%f') - datetime.strptime(newtimestamp[0],'%H:%M:%S.%f')
-                timee.append(timeelapsed)
-                #print(timeelapsed)
-           # print(timee)
+                timee.append(str(timeelapsed))
+            timee = liste_in_string_umwandeln(timee)
+           #     print(timeelapsed)
+            print(timee)
 
            # print(str(datetime.strptime(newtimestamp[1], '%H:%M:%S.%f')) + ' - ' + str(datetime.strptime(newtimestamp[0], '%H:%M:%S.%f')))
 
@@ -109,6 +119,7 @@ for dateiname in os.listdir():
             df2 = pd.DataFrame(newintensity, columns=['intensity[a. u.]'])
             #print(df2)
             df['intensity[a. u.]'] = df2['intensity[a. u.]']
+          #  df = df.groupby(df['time[hh:mm:ss]'])['intensity[a. u.]'].sum()
           #  print(df)
             df.to_csv(dateiname.split('.')[0]+'_.csv', sep=';')
 

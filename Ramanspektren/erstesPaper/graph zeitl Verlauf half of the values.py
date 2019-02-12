@@ -5,17 +5,17 @@ import os
 import plotly
 from plotly import graph_objs as go
 from lib.allgemein import generate_filename
-import Ramanspektren.lib.plotlygraphen
+import lib.plotlygraphen
 
 
 suffix_for_new_filename = '_xy_everyOther.html'
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
-    colors = Ramanspektren.lib.plotlygraphen.jet()
-    lineform = Ramanspektren.lib.plotlygraphen.lineforms()
-    names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
-    names_letters = Ramanspektren.lib.plotlygraphen.letters()
+    colors = lib.plotlygraphen.jet()
+    lineform = lib.plotlygraphen.lineforms()
+    names_numbers = lib.plotlygraphen.numbers()
+    names_letters = lib.plotlygraphen.letters()
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True
@@ -94,7 +94,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
         width=600,
         height=430,
 #        margin=dict(l=100),
-        legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
+        legend=dict(x=0.95, y=1,       # legend=dict(x=0.85, y=1,
                     font=dict(family='Arial, sans-serif',
                               size=20,
                               color='#000000')),
@@ -153,7 +153,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_xy_yFehler_data(x_values, y_values, errorx, errory),
                layout=plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick))
-    plotly.offline.plot(fig, filename=nwfile, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
+    plotly.offline.plot(fig, filename=nwfile) # , auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
 
 
 
@@ -163,7 +163,7 @@ for dateiname in os.listdir():
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
           #  print(df)
-            df = Ramanspektren.lib.allgemein.leave_every_other_datapoint_except_range(df, 18, 21)
+            df = lib.allgemein.leave_every_other_datapoint_except_range(df, 18, 21)
             x = df.iloc[:, 0]
            # print(x)
             y = pd.DataFrame(df.iloc[:, 1:])

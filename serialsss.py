@@ -8,7 +8,10 @@ import datetime, time
 
 ser = serial.Serial()
 # print(ser)
-ser.baudrate = 19200
+
+#ser.baudrate = 19200
+ser.baudrate = 115200
+
 
 fo = open("foo.txt", "w", encoding='utf-8')
 
@@ -17,7 +20,7 @@ for i in serial.tools.list_ports.comports():
 # for j in serial.tools.list_ports.grep('.'):
 #     print(j)
 
-ser.port = 'COM5'
+ser.port = 'COM6'
 
 print(ser)
 # with ser as open:
@@ -25,7 +28,10 @@ print(ser)
 ser.open()
 print(ser.is_open)
 
-print(ser.read(100))
+try:
+    print(ser.read(100))
+except:
+    ser.close()
 # print(ser.read())
 # ser.close()
 
@@ -38,23 +44,23 @@ print(ser.read(100))
 # https://stackoverflow.com/questions/54438914/adding-a-duration-to-a-start-time-string-to-get-a-finish-time
 # print(int.from_bytes(b'\x11', byteorder=sys.byteorder))#
 
-duration = input('Bitte Messdauer eingeben [h:mm:ss] ')
-if duration == '':
-    duration = '0:00:02'
-else:
-    duration = int(duration)
-
-ts = datetime.datetime.now()
-
-for i in range(1000):
-    i = ser.read()
-    i = int.from_bytes(i, byteorder=sys.byteorder)
-    tf = datetime.datetime.now()
-    te = tf - ts
-    #print(str(te).split('.'))
-    if str(te).split('.')[0] == str(duration):
-        break
-    fo.write(str(te) + ';' + str(i) + '\n')
+# duration = input('Bitte Messdauer eingeben [h:mm:ss] ')
+# if duration == '':
+#     duration = '0:00:02'
+# else:
+#     duration = int(duration)
+#
+# ts = datetime.datetime.now()
+#
+# for i in range(1000):
+#     i = ser.read()
+#     i = int.from_bytes(i, byteorder=sys.byteorder)
+#     tf = datetime.datetime.now()
+#     te = tf - ts
+#     #print(str(te).split('.'))
+#     if str(te).split('.')[0] == str(duration):
+#         break
+#     fo.write(str(te) + ';' + str(i) + '\n')
 fo.close()
 
 
