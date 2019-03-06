@@ -5,7 +5,7 @@ import os
 import plotly
 from plotly import graph_objs as go
 from lib.allgemein import generate_filename
-import Ramanspektren.lib.plotlygraphen
+import lib.plotlygraphen
 import numpy as np
 
 
@@ -47,9 +47,9 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     colors = ['#2ca02c', '#000000', '#9467bd', '#000000', '#2ca02c', '#000000', '#9467bd', '#000000',
               '#2ca02c', '#000000', '#9467bd', '#000000', '#2ca02c', '#000000', '#9467bd', '#000000']
 
-    lineform = Ramanspektren.lib.plotlygraphen.lineforms()
-    names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
-    names_letters = Ramanspektren.lib.plotlygraphen.letters()
+    lineform = lib.plotlygraphen.lineforms()
+    names_numbers = lib.plotlygraphen.numbers()
+    names_letters = lib.plotlygraphen.letters()
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True
@@ -278,4 +278,4 @@ for dateiname in os.listdir():
       #      print(x) # Wellenlängenverschiebung
             y = pd.DataFrame(df.iloc[1:, 1:])
         #    print(y) # Intensitäten
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[150,2000], y_range=[0,45000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='rel. wavenumber [cm<sup>-1</sup>]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[150,2000], y_range=[0,45000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='Raman shift / cm<sup>-1</sup>', yaxis_title='intensity / a. u.', x_lables=True, y_lables=True)

@@ -5,7 +5,7 @@ import os
 import plotly
 from plotly import graph_objs as go
 from lib.allgemein import generate_filename
-import Ramanspektren.lib.plotlygraphen
+import lib.plotlygraphen
 import numpy as np
 
 
@@ -21,10 +21,10 @@ shift = [s5, s4, s3, s2, s1]
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
-    colors = Ramanspektren.lib.plotlygraphen.jet()
-    lineform = Ramanspektren.lib.plotlygraphen.lineforms()
-    names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
-    names_letters = Ramanspektren.lib.plotlygraphen.letters()
+    colors = lib.plotlygraphen.jet()
+    lineform = lib.plotlygraphen.lineforms()
+    names_numbers = lib.plotlygraphen.numbers()
+    names_letters = lib.plotlygraphen.letters()
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True

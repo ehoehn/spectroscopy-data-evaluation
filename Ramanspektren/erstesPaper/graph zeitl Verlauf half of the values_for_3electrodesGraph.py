@@ -5,17 +5,17 @@ import os
 import plotly
 from plotly import graph_objs as go
 from lib.allgemein import generate_filename
-import Ramanspektren.lib.plotlygraphen
+import lib.plotlygraphen
 
 
 suffix_for_new_filename = '_xy_everyOther.html'
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
-    colors = Ramanspektren.lib.plotlygraphen.jet()
-    lineform = Ramanspektren.lib.plotlygraphen.lineforms()
-    names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
-    names_letters = Ramanspektren.lib.plotlygraphen.letters()
+    colors = lib.plotlygraphen.jet()
+    lineform = lib.plotlygraphen.lineforms()
+    names_numbers = lib.plotlygraphen.numbers()
+    names_letters = lib.plotlygraphen.letters()
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True
@@ -164,9 +164,9 @@ for dateiname in os.listdir():
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
           #  print(df)
-            df = Ramanspektren.lib.allgemein.leave_every_other_datapoint_except_range(df, 18, 21)
+            df = lib.allgemein.leave_every_other_datapoint_except_range(df, 18, 21)
             x = df.iloc[:, 0]
            # print(x)
-            y = pd.DataFrame(df.iloc[:, 1:])
+            y = pd.DataFrame(df.iloc[:, 3])     #            y = pd.DataFrame(df.iloc[:, 1:])
          #   print(y)
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='norm. intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time / s', yaxis_title='norm. intensity / a. u.', x_lables=True, y_lables=True, z_lables=True)

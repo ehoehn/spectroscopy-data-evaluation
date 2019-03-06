@@ -2,8 +2,8 @@ import os
 import pandas as pd
 import plotly
 import plotly.graph_objs as go  # import Scatter, Layout
-from Ramanspektren.lib.allgemein import generate_filename
-from Ramanspektren.lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
+from lib.allgemein import generate_filename
+from lib.plotlygraphen import plotly_zeitlVerlauf_2dscatter_layout
 
 
 suffix_for_new_filename = '_graph.html'
