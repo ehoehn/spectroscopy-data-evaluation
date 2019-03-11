@@ -111,8 +111,8 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             showline=True,
             linewidth=2,
             zeroline=False,
-            # autotick=True,
-            autotick=False,
+            autotick=True,
+            #autotick=False,
             ticks='outside',
             tick0=0,
             ticklen=5,
@@ -162,9 +162,9 @@ for dateiname in os.listdir():
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
-            print(df)
+           # print(df)
             x = df.iloc[:, 0]
          #   print(x)
             y = pd.DataFrame(df.iloc[:, 1:])
           #  print(y)
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, 214], y_range=None, x_dtick=50, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, x.iloc[-1]], y_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)

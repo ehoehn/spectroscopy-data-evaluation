@@ -166,6 +166,7 @@ for dateiname in os.listdir():
             df = lib.allgemein.leave_every_other_datapoint_except_range(df, 18, 21)
             x = df.iloc[:, 0]
            # print(x)
-            y = pd.DataFrame(df.iloc[:, 1:])                 #  y = pd.DataFrame(df.iloc[:, 1:])
+            y = pd.DataFrame(df.iloc[:, 1:])
+            #y = pd.DataFrame(df.iloc[:, 0:])                 #  y = pd.DataFrame(df.iloc[:, 1:])
          #   print(y)
             plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time / s', yaxis_title='norm. intensity / a. u.', x_lables=True, y_lables=True, z_lables=True)

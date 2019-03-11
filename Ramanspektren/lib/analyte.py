@@ -39,3 +39,6 @@ def vier_mercaptobenzoesaeure(): #indicator band: 1040, 1119
 
 def viervierstrich_dipyridyl(): #indicator band: 979, 1061
     return [979, 1061]
+
+def kristallviolett_auf_goldspitze(): #indicator band:
+    return [1149, 1212]

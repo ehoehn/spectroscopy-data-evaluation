@@ -18,7 +18,7 @@ import lib.analyte
 
 
 #suffix_for_new_filename = '_graphIntensityOverTime.csv'
-punkte_baseline = lib.analyte.kristallviolett_al_Raja()
+punkte_baseline = lib.analyte.kristallviolett_auf_goldspitze()
 band_start = punkte_baseline[0]+1
 band_end = punkte_baseline[1]
 

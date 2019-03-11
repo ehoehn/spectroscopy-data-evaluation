@@ -64,7 +64,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
             line=dict(
                 width='3',
       #          color=colors[t],
-                dash=lineform[t]
+           #     dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
             #    color='rgb(166, 166, 166)'
 
@@ -169,4 +169,4 @@ for dateiname in os.listdir():
             # print(y.iloc[:, 0].max())
 
         #  print(y)
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, x.iloc[-1]], y_range=[0, y.iloc[:, 0].max()], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, x.iloc[-1]], y_range=[0, y.iloc[:, 0].max()], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time / s', yaxis_title='norm. intensity / a. u.', x_lables=True, y_lables=True, z_lables=True)
