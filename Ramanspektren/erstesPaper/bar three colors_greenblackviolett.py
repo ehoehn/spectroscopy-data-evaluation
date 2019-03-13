@@ -199,4 +199,4 @@ for dateiname in os.listdir():
             #     Ramanspektren.lib.auswertung.grep_highest_intensity(z, wn_with_highest_intensity))
        #     print(highest_intensity)
 
-            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=[0,2000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title='intensity at 1180 cm<sup>-1</sup> / a. u.', x_lables=True, y_lables=True, z_lables=True)
+            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=[0,2000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title='Intensity at 1180 cm<sup>-1</sup> (a. u.)', x_lables=True, y_lables=True, z_lables=True)

@@ -13,8 +13,8 @@ suffix_for_new_filename = '_shifted.html'
 
 s1 = 0
 s2 = s1 + 600
-s3 = s2 + 750
-s4 = s3 + 1750
+s3 = s2 + 1500
+s4 = s3 + 6000
 s5 = s4 + 4000
 
 shift = [s4, s3, s2, s1]
@@ -40,13 +40,13 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
     for h in range(len(y_values.columns)):
         print(h)
         if h == 0:
-            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+            y_values[y_values.columns[h]] = (y_values[y_values.columns[h]]*1 + shift[h])/1.75
         if h == 1:
-            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+            y_values[y_values.columns[h]] = (y_values[y_values.columns[h]]*1 + shift[h])/1.75
         if h == 2:
-            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+            y_values[y_values.columns[h]] = (y_values[y_values.columns[h]]*1 + shift[h])/1.75
         if h == 3:
-            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+            y_values[y_values.columns[h]] = (y_values[y_values.columns[h]]*1 + shift[h])/1.75
         # if h == 4:
         #     y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
 
@@ -155,7 +155,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
         traces.append(trace)
     traces.append(go.Scatter(
         x=[250, 250],
-        y=[4000, 5000],
+        y=[12000/1.75, 13000/1.75],
         error_x=dict(
             type='data',
             array=[0, 0],
@@ -221,7 +221,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             tickangle=0,
             tickfont=dict(family='Arial, sans-serif',
                           size=24,
-                          color='#000000'),
+                          color='#FFFFFF'),
             showgrid=False,
             showline=True,
             linewidth=2,
