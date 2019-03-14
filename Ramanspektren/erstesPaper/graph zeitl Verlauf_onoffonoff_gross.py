@@ -169,4 +169,4 @@ for dateiname in os.listdir():
             # print(y.iloc[:, 0].max())
 
         #  print(y)
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, x.iloc[-1]], y_range=[0, 200], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time / s', yaxis_title='norm. intensity / a. u.', x_lables=True, y_lables=True, z_lables=True)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, x.iloc[-1]], y_range=[0, 200], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='Time (s)', yaxis_title='Norm. Intensity (a. u.)', x_lables=True, y_lables=True, z_lables=True)
