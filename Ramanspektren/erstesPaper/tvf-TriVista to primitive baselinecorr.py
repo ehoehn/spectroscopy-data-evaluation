@@ -13,9 +13,6 @@ output file: band intensity over time after baseline correction
 #written by EvaMaria Hoehn
 
 
-import lib.analyte
-
-
 
 #suffix_for_new_filename = '_graphIntensityOverTime.csv'
 # punkte_baseline = lib.analyte.kristallviolett_al_Raja()

@@ -7,12 +7,11 @@ from plotly import graph_objs as go
 from lib.allgemein import generate_filename
 import lib.plotlygraphen
 import numpy as np
-import plotly.io as pio
-#plotly.offline.init_notebook_mode(connected=True)
-#plotly.__version__
 
 suffix_for_new_filename = '_waterf.html'
 
+fontfac = 1.3
+picfac = 1.5
 
 def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_values, errorz_values, errorx_ausan = False, errory_ausan = False, errorz_ausan = False):
     colors = lib.plotlygraphen.br()
@@ -136,7 +135,7 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
             mode='lines',
          #   name=names_numbers[t],
             line=dict(
-                width=6,
+                width=6*picfac,
                 color=colors[t],
           #      dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
@@ -163,23 +162,23 @@ def plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx_values, errory_
 def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_range, z_range, x_dtick, y_dtick, z_dtick, x_lables, y_lables, z_lables, ticktext, tickvals):
     layout = dict(
         autosize=True,
-        width=1000,
-        height=717,
+        width=1000*picfac,
+        height=717*picfac,
         legend=dict(x=0.65, y=0.65,
                     # legend=dict(x=0.85, y=1,
                     font=dict(family='Arial, sans-serif',
-                              size=14,
+                              size=14*fontfac,
                               color='#000000')),
         scene=dict(
             xaxis=dict(
                 title=xaxis_title,
                 titlefont=dict(family='Arial bold, sans-serif',
-                               size=18,
+                               size=18*fontfac,
                                color='#000000'),
                 showticklabels=x_lables,
                 tickangle=0,
                 tickfont=dict(family='Arial, sans-serif',
-                              size=16,
+                              size=16*fontfac,
                               color='#000000'),
            #     showgrid=False,
            #     showline=True,
@@ -206,12 +205,12 @@ def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_
             yaxis=dict(
                  title=yaxis_title,
                  titlefont=dict(family='Arial, sans-serif',
-                                size=18,
+                                size=18*fontfac,
                                 color='#000000'),
                  showticklabels=y_lables,
                  tickangle=0,
                  tickfont=dict(family='Arial, sans-serif',
-                               size=16,
+                               size=16*fontfac,
                                color='#000000'),
         #         showgrid=False,
         #         showline=True,
@@ -234,12 +233,12 @@ def plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_
             zaxis=dict(
                  title=zaxis_title,
                  titlefont=dict(family='Arial, sans-serif',
-                                size=18,
+                                size=18*fontfac,
                                 color='#000000'),
                  showticklabels=z_lables,
                  tickangle=0,
                  tickfont=dict(family='Arial, sans-serif',
-                               size=16,
+                               size=16*fontfac,
                                color='#000000'),
         #         showgrid=False,
         #         showline=True,
@@ -271,7 +270,8 @@ def plotly_xyz_yFehler(x_values, y_values, z_values, errorx=None, errory=None, e
     fig = dict(data=plotly_xyz_yFehler_data(x_values, y_values, z_values, errorx, errory, errorz),
                layout=plotly_xyz_yFehler_layout(xaxis_title, yaxis_title, zaxis_title, x_range, y_range, z_range, x_dtick, y_dtick, z_dtick, x_lables, y_lables, z_lables, ticktext, tickvals))
   #  plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
-    plotly.offline.plot(fig, filename=nwfile, auto_open=True,  image_filename=nwfile, image='svg', image_width=1000, image_height=717, )
+    plotly.offline.plot(fig, filename=nwfile, auto_open=True,  image_filename=nwfile, image='png', image_width=1000*picfac, image_height=717*picfac)
+
     # pio.write_image(fig, 'fig1.svg')
     # img_bytes = pio.to_image(fig, format='png', width=600, height=350, scale=2)
     # Image(img_bytes)

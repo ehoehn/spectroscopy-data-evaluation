@@ -8,7 +8,7 @@ from lib.allgemein import generate_filename
 import lib.plotlygraphen
 
 
-suffix_for_new_filename = '_xy.html'
+suffix_for_new_filename = '_xy_everyOther.html'
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
@@ -65,7 +65,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
             line=dict(
                 width='3',
       #          color=colors[t],
-            #    dash=lineform[t]
+                dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
             #    color='rgb(166, 166, 166)'
 
@@ -91,8 +91,9 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
         autosize=True,
         width=600,
         height=430,
-        margin=dict(l=100),
-        legend=dict(x=1, y=1,       # legend=dict(x=0.85, y=1,
+      #  margin=dict(l=100),
+       # legend=dict(x=1, y=1,        #   legend=dict(x=0.85, y=1,
+        legend=dict(x=0.95, y=1,
                     font=dict(family='Arial, sans-serif',
                               size=20,
                               color='#000000')),
@@ -152,22 +153,22 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_xy_yFehler_data(x_values, y_values, errorx, errory),
                layout=plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick))
-    plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
-
+    #plotly.offline.plot(fig, filename=nwfile) # , auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=True,  image_filename=nwfile, image='svg', image_width=600, image_height=430)
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('.csv'):
+    if dateiname.endswith('_normalized.csv') or dateiname.endswith('.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
-            # print(df)
+          #  print(df)
+            df = lib.allgemein.leave_every_other_datapoint_except_range(df, 18, 21)
             x = df.iloc[:, 0]
-            # print(x)
-            # print(x.iloc[-1])
-            y = pd.DataFrame(df.iloc[:400, 1:])
-            print(y)
-            # print(y.iloc[:, 0].max())
+           # print(x)
+            y = pd.DataFrame(df.iloc[:, 1:])
+          #  y = pd.DataFrame(df.iloc[:, 3])
 
-        #  print(y)
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, 200],  dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time [s]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True, z_lables=True)
+            #y = pd.DataFrame(df.iloc[:, 0:])                 #  y = pd.DataFrame(df.iloc[:, 1:])
+         #   print(y)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='Time (s)', yaxis_title='Norm. Intensity (a. u.)', x_lables=True, y_lables=True, z_lables=True)

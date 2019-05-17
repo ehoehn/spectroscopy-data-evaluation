@@ -151,8 +151,8 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_xy_yFehler_data(x_values, y_values, errorx, errory),
                layout=plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick))
-    plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
-
+    #plotly.offline.plot(fig, filename=nwfile) # , auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=True,  image_filename=nwfile, image='svg', image_width=1200, image_height=660)
 
 
 for dateiname in os.listdir():

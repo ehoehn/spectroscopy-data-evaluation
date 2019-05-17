@@ -169,8 +169,8 @@ def plotly_barChart(x_values, y_values, errorx=None, errory=None, dateiname=None
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_barChart_data(x_values, y_values, errorx, errory),
                layout=plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick))
-    plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
-
+ #   plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=True, image_filename=nwfile, image='svg', image_width=600, image_height=430)
 
 
 for dateiname in os.listdir():
