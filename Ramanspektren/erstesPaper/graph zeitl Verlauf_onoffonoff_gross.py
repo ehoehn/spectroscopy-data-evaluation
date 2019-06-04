@@ -9,6 +9,10 @@ import lib.plotlygraphen
 
 
 suffix_for_new_filename = '_xy.html'
+#yaxislable = 'Norm. Intensity (a. u.)'
+yaxislable = 'norm. intensity [a. u.]'
+#xaxislable = 'Time (s)'
+xaxislable = 'time [s]'
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
@@ -169,4 +173,5 @@ for dateiname in os.listdir():
             # print(y.iloc[:, 0].max())
 
         #  print(y)
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, x.iloc[-1]], y_range=[0, 200], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='Time (s)', yaxis_title='Norm. Intensity (a. u.)', x_lables=True, y_lables=True, z_lables=True)
+
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, x.iloc[-1]], y_range=[0, 200], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=xaxislable, yaxis_title=yaxislable, x_lables=True, y_lables=True, z_lables=True)

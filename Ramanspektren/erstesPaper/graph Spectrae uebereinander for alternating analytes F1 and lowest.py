@@ -10,6 +10,11 @@ import numpy as np
 
 
 suffix_for_new_filename = '_shifted.html'
+#xaxislable = 'Raman Shift (cm<sup>-1</sup>)'
+xaxislable = 'rel. wavenumber [cm<sup>-1</sup>]'
+#yaxislable = 'Intensity (a. u.)'
+yaxislable = 'intensity [a. u.]'
+
 
 s1 = 200
 s2 = s1 + 1500
@@ -278,4 +283,5 @@ for dateiname in os.listdir():
       #      print(x) # Wellenlängenverschiebung
             y = pd.DataFrame(df.iloc[1:, 1:])
         #    print(y) # Intensitäten
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[150,2000], y_range=[0,45000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='Raman Shift (cm<sup>-1</sup>)', yaxis_title='Intensity (a. u.)', x_lables=True, y_lables=True)
+
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[150,2000], y_range=[0,45000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=xaxislable, yaxis_title=yaxislable, x_lables=True, y_lables=True)
