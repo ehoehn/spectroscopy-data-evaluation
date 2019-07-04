@@ -166,7 +166,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
             name=y_values.columns[t],
       #      name=y_values.columns[t],
             line=dict(
-                width='3',
+                width=3,
                 color=colors[t],
                 dash=lineform[t]
                 #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
@@ -205,7 +205,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
         mode='lines',
         name=' ',
         line=dict(
-            width='2',
+            width=2,
             color='#000000',)))
     return traces
 
@@ -234,7 +234,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             showline=True,
             linewidth=2,
             zeroline=False,
-            autotick=True,
+           # autotick=True,
             ticks='outside',
             tick0=0,
             ticklen=5,
@@ -258,7 +258,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             showline=True,
             linewidth=2,
             zeroline=False,
-            autotick=True,
+          #  autotick=True,
             ticks='outside',
             tick0=0,
             ticklen=5,

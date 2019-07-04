@@ -17,6 +17,9 @@ band_end = 1215
 
 
 suffix_for_new_filename = '_bar.html'
+#yaxislable = 'Intensity at 1180 cm<sup>-1</sup> (a. u.)'
+yaxislable = 'intensity at 1180 cm<sup>-1</sup> [a. u.]'
+
 
 
 def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
@@ -25,7 +28,8 @@ def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, error
     lineform = lib.plotlygraphen.lineforms()
     names_numbers = lib.plotlygraphen.numbers()
     names_letters = lib.plotlygraphen.letters()
-    legend = [['MG', 'CV'], ['after reg.']]
+  #  legend = [['MG', 'CV', 'MG', 'CV', 'MG', 'CV', 'MG', 'CV'], 'after reg.']
+    legend = ['MG', 'after reg.']
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True
@@ -76,7 +80,7 @@ def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, error
       #           ),
       #       mode='lines',
       #      name=names_letters[t],
-            name=legend,
+            name=legend[t],
 
             # line=dict(
             # #     width='3',
@@ -171,8 +175,8 @@ def plotly_barChart(x_values, y_values, errorx=None, errory=None, dateiname=None
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_barChart_data(x_values, y_values, errorx, errory),
                layout=plotly_barChart_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick))
-    plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
-
+   # plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=True, image_filename=nwfile, image='svg', image_width=600, image_height=430)
 
 
 for dateiname in os.listdir():
@@ -199,4 +203,4 @@ for dateiname in os.listdir():
             #     Ramanspektren.lib.auswertung.grep_highest_intensity(z, wn_with_highest_intensity))
        #     print(highest_intensity)
 
-            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=[0,2000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title='Intensity at 1180 cm<sup>-1</sup> (a. u.)', x_lables=True, y_lables=True, z_lables=True)
+            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=[0,2000], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title=yaxislable, x_lables=True, y_lables=True, z_lables=True)

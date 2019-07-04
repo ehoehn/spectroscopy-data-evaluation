@@ -9,10 +9,10 @@ import lib.plotlygraphen
 
 
 suffix_for_new_filename = '_xy.html'
-yaxislable = 'Norm. Intensity (a. u.)'
-#yaxislable = 'norm. intensity [a. u.]'
-xaxislable = 'Time (s)'
-#xaxislable = 'time [s]'
+#yaxislable = 'Norm. Intensity (a. u.)'
+yaxislable = 'norm. intensity [a. u.]'
+#xaxislable = 'Time (s)'
+xaxislable = 'time [s]'
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):

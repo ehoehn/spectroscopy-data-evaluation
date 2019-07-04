@@ -17,6 +17,8 @@ band_end = 1215
 
 
 suffix_for_new_filename = '_bar.html'
+#yaxislable = 'Intensity at 1180 cm<sup>-1</sup> (a. u.)'
+yaxislable = 'intensity at 1180 cm<sup>-1</sup> [a. u.]'
 
 
 def plotly_barChart_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
@@ -174,7 +176,7 @@ def plotly_barChart(x_values, y_values, errorx=None, errory=None, dateiname=None
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('Graph (2).csv'):
+    if dateiname.endswith('Graph.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
@@ -197,4 +199,4 @@ for dateiname in os.listdir():
             #     Ramanspektren.lib.auswertung.grep_highest_intensity(z, wn_with_highest_intensity))
        #     print(highest_intensity)
 
-            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title='Intensity at 1180 cm<sup>-1</sup> (a. u.)', x_lables=True, y_lables=True, z_lables=True)
+            plotly_barChart(x_values=x, y_values=y, x_range=None, y_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=' ', yaxis_title=yaxislable, x_lables=True, y_lables=True, z_lables=True)
