@@ -13,7 +13,7 @@ def baselinecorrection(intensities, punkte_baseline):
     return df_korregiert
 
 
-def get_spectrum_values(df,punkte_baseline):
+def get_spectrum_values(df, punkte_baseline):
     ind = df.index.values.tolist()
     ks = []
     for i in range(0, len(punkte_baseline)):

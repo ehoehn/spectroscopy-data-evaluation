@@ -5,7 +5,7 @@ import os
 import plotly
 from plotly import graph_objs as go
 from lib.allgemein import generate_filename
-import Ramanspektren.lib.plotlygraphen
+import lib.plotlygraphen
 import numpy as np
 
 
@@ -13,10 +13,10 @@ suffix_for_new_filename = '_spectrae.html'
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
-    colors = Ramanspektren.lib.plotlygraphen.jet()
-    lineform = Ramanspektren.lib.plotlygraphen.lineforms()
-    names_numbers = Ramanspektren.lib.plotlygraphen.numbers()
-    names_letters = Ramanspektren.lib.plotlygraphen.letters()
+    colors = lib.plotlygraphen.jet()
+    lineform = lib.plotlygraphen.lineforms()
+    names_numbers = lib.plotlygraphen.numbers()
+    names_letters = lib.plotlygraphen.letters()
     print(plotly.__version__)
     if errorx_values is not None:
         errorx_ausan = True
@@ -83,7 +83,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
      #   print(t)
         trace = go.Scatter(
             x=x_values,
-            y=Ramanspektren.lib.allgemein.add_value_to_listelements(nrCol[t], shiftvalues[t]),
+            y=lib.allgemein.add_value_to_listelements(nrCol[t], shiftvalues[t]),
             error_x=dict(
                 type='data',
                 array=errorx_values,
@@ -103,7 +103,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
             mode='lines',
             name=names_letters[t],
             line=dict(
-                width='3',
+                width=3,
            #     color='#FF0000',
                 dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
@@ -150,7 +150,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             showline=True,
             linewidth=2,
             zeroline=False,
-            autotick=True,
+            # autotick=True,
             ticks='outside',
             tick0=0,
             ticklen=5,
@@ -174,7 +174,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             showline=True,
             linewidth=2,
             zeroline=False,
-            autotick=True,
+            # autotick=True,
             ticks='outside',
             tick0=0,
             ticklen=5,

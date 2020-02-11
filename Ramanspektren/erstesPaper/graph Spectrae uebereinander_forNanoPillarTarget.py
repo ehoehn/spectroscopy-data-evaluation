@@ -10,14 +10,19 @@ import numpy as np
 
 
 suffix_for_new_filename = '_shifted.html'
+#xaxislable = 'Raman Shift (cm<sup>-1</sup>)'
+xaxislable = 'rel. wavenumber [cm<sup>-1</sup>]'
+#yaxislable = 'Intensity (a. u.)'
+yaxislable = 'intensity [a. u.]'
+
 
 s1 = 0
-s2 = s1 + 1500
-s3 = s2 + 1500
-s4 = s3 + 3000
-s5 = s4 + 4000
+s2 = s1 + 5000
+s3 = s2 + 8000
+s4 = s3 + 4500
+# s5 = s4 + 4000
 
-shift = [s5, s4, s3, s2, s1]
+shift = [s4, s3, s2, s1]
 
 
 def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, errorx_ausan = False, errory_ausan = False):
@@ -44,11 +49,11 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
         if h == 1:
             y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
         if h == 2:
-            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*20 + shift[h]
-        if h == 3:
-            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*20 + shift[h]
-        if h == 4:
             y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+        if h == 3:
+            y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
+        # if h == 4:
+        #     y_values[y_values.columns[h]] = y_values[y_values.columns[h]]*1 + shift[h]
 
     # print(y[0])
     # print(y)
@@ -155,7 +160,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
         traces.append(trace)
     traces.append(go.Scatter(
         x=[250, 250],
-        y=[11000, 12000],
+        y=[23000, 25000],
         error_x=dict(
             type='data',
             array=[0, 0],
@@ -202,7 +207,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             showline=True,
             linewidth=2,
             zeroline=False,
-            # autotick=True,
+          #  autotick=True,
             ticks='outside',
             tick0=0,
             ticklen=5,
@@ -226,7 +231,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             showline=True,
             linewidth=2,
             zeroline=False,
-            # autotick=True,
+          #  autotick=True,
             ticks='outside',
             tick0=0,
             ticklen=5,
@@ -245,12 +250,11 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_xy_yFehler_data(x_values, y_values, errorx, errory),
                layout=plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick))
-    plotly.offline.plot(fig, filename=nwfile) #, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
-
+    plotly.offline.plot(fig, filename=nwfile, auto_open=True, image_filename=nwfile, image='svg', image_width=600, image_height=430)
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('.csv'):
+    if dateiname.endswith('_fürGraph.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
@@ -260,7 +264,11 @@ for dateiname in os.listdir():
             # x = pd.DataFrame(df.iloc[0, 1:])
 
             x = df.iloc[1:, 0]
-      #      print(x) # Wellenlängenverschiebung
+            #      print(x) # Wellenlängenverschiebung
             y = pd.DataFrame(df.iloc[1:, 1:])
-        #    print(y) # Intensitäten
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[150,2000], y_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='rel. wavenumber [cm<sup>-1</sup>]', yaxis_title='intensity [a. u.]', x_lables=True, y_lables=True)
+            #    print(y) # Intensitäten
+
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[150,2000], y_range=None, dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=xaxislable, yaxis_title=yaxislable, x_lables=True, y_lables=True)
+
+
+

@@ -271,7 +271,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('Kopie.csv'):
+    if dateiname.endswith('.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')

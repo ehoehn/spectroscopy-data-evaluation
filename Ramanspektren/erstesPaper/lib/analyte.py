@@ -39,3 +39,6 @@ def vier_mercaptobenzoesaeure(): #indicator band: 1040, 1119
 
 def viervierstrich_dipyridyl(): #indicator band: 979, 1061
     return [979, 1061]
+
+def PMBA_nach_Kevin(): #indicator band: 1514, 1640
+    return [1514, 1640]

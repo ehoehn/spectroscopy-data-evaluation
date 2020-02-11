@@ -11,10 +11,10 @@ from lib.xml_import import get_intensities, get_times
 from lib.baseline_corr import baselinecorrection
 from lib.auswertung import compute_wn_with_highest_intensity_labelbased
 from lib.auswertung import grep_highest_intensity
-from Ramanspektren.lib.xml_import import get_intensities
-from Ramanspektren.lib.allgemein import generate_filename
-from Ramanspektren.lib.auswertung import compute_frame_with_lowest_intensity_labelbased
-from Ramanspektren.lib.plotlygraphen import plotly_Spectrum_2dscatter_layout
+from lib.xml_import import get_intensities
+from lib.allgemein import generate_filename
+from lib.auswertung import compute_frame_with_lowest_intensity_labelbased, compute_frame_with_lowest_intensity
+from lib.plotlygraphen import plotly_Spectrum_2dscatter_layout
 import scipy.signal
 import pandas as pd
 
@@ -77,13 +77,13 @@ for i in range(0, len(list_dateiname)):
             # df_a = df_a.set_index([list(range(1, len(df_a.index) + 1))])
             # df_a = df_a.transpose()
             #   print(df_a)
-            framenumber = compute_frame_with_lowest_intensity_labelbased(df_out, band_start, band_end)
+            print(df_out.iloc[:, :50])
+            framenumber = compute_frame_with_lowest_intensity_labelbased(df_out.iloc[:, :50], band_start, band_end)
             print(framenumber)
             df_a[list_dateiname[i] + ' Frame ' + str(framenumber)] = df_out['Frame ' + str(framenumber)]
             print(df_b)
         #df_a = df_a.append(df_b)
 print(df_a)
-
 #             smoothed_intensities = scipy.signal.savgol_filter(intensities, window_length=9, polyorder=1, axis=0, mode='nearest')
 #             smoothed_intensities = pd.DataFrame(smoothed_intensities, index=intensities.index, columns=intensities.columns)
 #             df_korregiert = baselinecorrection(smoothed_intensities, punkte_baseline)

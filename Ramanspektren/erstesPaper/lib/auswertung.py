@@ -3,6 +3,11 @@ import scipy.signal
 import regex as re
 
 
+def compute_highest_intensity_within_interval(df_korregiert, punkte_baseline):
+    interval = df_korregiert.ix[punkte_baseline[0]:punkte_baseline[1]]
+    highest_intensity = interval.max()
+    return highest_intensity
+
 def compute_wn_with_highest_intensity(df_korregiert, band_start, band_end):
     interval = df_korregiert.ix[band_start:band_end]
     wn_with_highest_intensity = interval.idxmax(axis=0)
@@ -72,7 +77,7 @@ def compute_frame_with_lowest_intensity_labelbased(intensities, band_start, band
             #       print(j)
             break
     interval = intensities.loc[i:j]
-    band = interval.idxmax(axis=0)
+    band = interval.apply(max, axis=0)
     lowest = band.idxmin()
     dfn = lowest.split(' ')
     framenumber = int(dfn[1])

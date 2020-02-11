@@ -8,6 +8,15 @@ from lib.allgemein import generate_filename
 import lib.plotlygraphen
 
 
+#yaxislable = 'Norm. Intensity (a. u.)'
+# yaxislable = 'norm. intensity / a. u.'
+# yaxislable = 'norm. intensity [a. u.]'
+yaxislable = 'intensity [a. u.]'
+#xaxislable = 'Time (s)'
+# xaxislable = 'time / s'
+xaxislable = 'time [s]'
+
+
 suffix_for_new_filename = '_xy.html'
 
 
@@ -62,7 +71,7 @@ def plotly_xy_yFehler_data(x_values, y_values, errorx_values, errory_values, err
             # name=names_numbers[t],
             name=y_values.columns[t],
             line=dict(
-                width='3',
+                width=3,
       #          color=colors[t],
            #     dash=lineform[t]
               #  colorscale = Ramanspektren.lib.plotlygraphen.jet[t]
@@ -110,7 +119,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             linewidth=2,
             zeroline=False,
             # autotick=True,
-            autotick=True,
+            # autotick=True,
             ticks='outside',
             tick0=0,
             ticklen=5,
@@ -134,7 +143,7 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
             showline=True,
             linewidth=2,
             zeroline=False,
-            autotick=True,
+            # autotick=True,
             ticks='outside',
             tick0=0,
             ticklen=5,
@@ -151,8 +160,10 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_xy_yFehler_data(x_values, y_values, errorx, errory),
                layout=plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick))
-    plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
-
+    # plotly.offline.plot(fig, filename=nwfile)#, auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=True,
+                            image_filename=nwfile, image='svg',
+                            image_width=600, image_height=430)
 
 
 for dateiname in os.listdir():
@@ -169,4 +180,7 @@ for dateiname in os.listdir():
             # print(y.iloc[:, 0].max())
 
         #  print(y)
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, x.iloc[-1]], y_range=[0, y.iloc[:, 0].max()], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title='time / s', yaxis_title='norm. intensity / a. u.', x_lables=True, y_lables=True, z_lables=True)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0, x.iloc[-1]], y_range=[0, y.iloc[:, 0].max()],
+                              dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename,
+                              xaxis_title=xaxislable, yaxis_title=yaxislable,
+                              x_lables=True, y_lables=True, z_lables=True)

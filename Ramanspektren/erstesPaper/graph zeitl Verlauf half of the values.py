@@ -2,10 +2,12 @@ import pandas as pd
 import os
 
 
+
 import plotly
 from plotly import graph_objs as go
 from lib.allgemein import generate_filename
 import lib.plotlygraphen
+
 
 
 suffix_for_new_filename = '_xy_everyOther.html'
@@ -154,12 +156,21 @@ def plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick
     return layout
 
 
-def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=None, suffix_for_new_filename=None, x_range=None, y_range=None, x_dtick=None, y_dtick=None, xaxis_title='', yaxis_title='', x_lables=True, y_lables=True, z_lables=True):
+def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None,
+                      dateiname=None, suffix_for_new_filename=None,
+                      x_range=None, y_range=None,
+                      x_dtick=None, y_dtick=None,
+                      xaxis_title='', yaxis_title='',
+                      x_lables=True, y_lables=True, z_lables=True):
     nwfile = generate_filename(dateiname, suffix_for_new_filename)
     fig = dict(data=plotly_xy_yFehler_data(x_values, y_values, errorx, errory),
-               layout=plotly_xy_yFehler_layout(xaxis_title, yaxis_title, x_range, y_range, x_dtick, y_dtick))
+               layout=plotly_xy_yFehler_layout(xaxis_title, yaxis_title, 
+                                               x_range, y_range, 
+                                               x_dtick, y_dtick))
     #plotly.offline.plot(fig, filename=nwfile) # , auto_open=False) #,  image_filename=nwfile)  #, image='png', image_width=1600, image_height=860)
-    plotly.offline.plot(fig, filename=nwfile, auto_open=True,  image_filename=nwfile, image='svg', image_width=600, image_height=430)
+    plotly.offline.plot(fig, filename=nwfile, auto_open=True, 
+                        image_filename=nwfile, image='svg', 
+                        image_width=600, image_height=430)
 
 
 
@@ -178,4 +189,7 @@ for dateiname in os.listdir():
             #y = pd.DataFrame(df.iloc[:, 0:])                 #  y = pd.DataFrame(df.iloc[:, 1:])
          #   print(y)
 
-            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150], dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename, xaxis_title=xaxislable, yaxis_title=yaxislable, x_lables=True, y_lables=True, z_lables=True)
+            plotly_xy_yFehler(x_values=x, y_values=y, x_range=[0,50], y_range=[0,150],
+                              dateiname=dateiname, suffix_for_new_filename=suffix_for_new_filename,
+                              xaxis_title=xaxislable, yaxis_title=yaxislable,
+                              x_lables=True, y_lables=True, z_lables=True)

@@ -25,11 +25,14 @@ def add_value_to_listelements(input, value):
     return ft
 
 def generate_filename(dateiname, suffix_for_new_filename):
-    name = dateiname.split('.')
-    del name[-1]
-    separator = "."
-    nwname = separator.join(name)
-    nwfile = nwname + suffix_for_new_filename
+    if '.' in dateiname:
+        name = dateiname.split('.')
+        del name[-1]
+        separator = "."
+        nwname = separator.join(name)
+        nwfile = nwname + suffix_for_new_filename
+    else:
+        nwfile = dateiname + suffix_for_new_filename
     return nwfile
 
 

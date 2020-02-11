@@ -272,7 +272,7 @@ def plotly_xy_yFehler(x_values, y_values, errorx=None, errory=None, dateiname=No
 
 
 for dateiname in os.listdir():
-    if dateiname.endswith('and lowest intensities_w9_o1_s_pdD#.csv'):
+    if dateiname.endswith('and lowest intensities_w9_o1_s_pdD.csv'):
         print(dateiname)
         with open(dateiname) as fd:
             df = pd.read_csv(fd, index_col=0, header=1, sep=';')
